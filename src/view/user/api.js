@@ -11,7 +11,7 @@ const api = {
   * @desc 查询用户列表
   * @params:
   *   params(Object): 参数
-  * @auth Dulongfei
+  * @auth Roffer
   * 2022/4/19 16:14
   *
   */
@@ -23,7 +23,7 @@ export function query(params={}){
   * @desc 更新用户
   * @params:
   *   params(Object): 参数
-  * @auth Dulongfei
+  * @auth Roffer
   * 2022/4/19 16:15
   *
   */
@@ -35,7 +35,7 @@ export function update(params={}){
  * @desc 删除用户
  * @params:
  *   params(Object): 参数
- * @auth Dulongfei
+ * @auth Roffer
  * 2022/4/19 16:15
  *
  */
@@ -47,7 +47,7 @@ export function del(params={}){
  * @desc 添加用户
  * @params:
  *   params(Object): 参数
- * @auth Dulongfei
+ * @auth Roffer
  * 2022/4/19 16:15
  *
  */
@@ -59,7 +59,7 @@ export function save(params={}){
  * @desc 根据Id获取用户信息
  * @params:
  *   params(Object): 参数
- * @auth Dulongfei
+ * @auth Roffer
  * 2022/4/19 16:15
  *
  */

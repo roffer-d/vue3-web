@@ -49,7 +49,7 @@ function getParamsFromUrl(name){
  * @desc 拷贝对象
  * @method
  * @params mod
- * @auth   roffer
+ * @auth   Roffer
  * @date   2019-05-0911:22
  */
 function clone(obj){
@@ -154,7 +154,7 @@ function formatFileSize(size, pointLength, units) {
  * @param {参数类型} 参数名称 参数介绍
  * @param {参数类型} 参数名称 参数介绍
  * @date 2020-06-18 11:17:53
- * @author Dulongfei
+ * @author Roffer
  *
  */
 function moveEnd(obj) {
@@ -175,7 +175,7 @@ function moveEnd(obj) {
  * @desc 判断是否是对象
  * @param {Object} obj 判断的参数
  * @date 2020-06-18 11:17:53
- * @author Dulongfei
+ * @author Roffer
  *
  */
 function isObject(obj){
@@ -187,7 +187,7 @@ function isObject(obj){
   * @desc 设置登录信息
   * @params:
   *   name(类型): 描述
-  * @auth Dulongfei
+  * @auth Roffer
   * 2022/4/19 13:30
   *
   */
@@ -200,7 +200,7 @@ function setLoginInfo(token,user={}){
  * @desc 获取登录信息
  * @params:
  *   name(类型): 描述
- * @auth Dulongfei
+ * @auth Roffer
  * 2022/4/19 13:30
  *
  */
@@ -213,7 +213,7 @@ function getLoginInfo(){
  * @desc 删除登录信息
  * @params:
  *   name(类型): 描述
- * @auth Dulongfei
+ * @auth Roffer
  * 2022/4/19 13:30
  *
  */

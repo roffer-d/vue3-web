@@ -1,11 +1,3 @@
-/*
- * @Description: 
- * @Version: 1.0
- * @Autor: Tangtao
- * @Date: 2020-07-16 13:11:18
- * @LastEditors: Seven
- * @LastEditTime: 2020-07-18 17:42:05
- */
 /** 移动端长按指令 **/
 const directiveList = [
   {

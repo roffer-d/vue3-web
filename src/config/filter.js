@@ -4,7 +4,7 @@ export default {
      * @param {String} val 要截取的值
      * @param {Number} length 要截取长度 默认15
      * @date 2020-06-17 11:13:24
-     * @author Dulongfei
+     * @author Roffer
      *
      */
     ellipsis(val='',length=15){
@@ -17,7 +17,7 @@ export default {
      * @param {Number} start 要截取长度 默认15
      * @param {Number} end 从后缀名之前的字符开始，保留多少位，默认为3
      * @date 2020-06-17 11:13:24
-     * @author Dulongfei
+     * @author Roffer
      *
      */
     fileEllipsis(val='',start=15,end=3){

@@ -14,15 +14,15 @@ module.exports = {
         config.resolve.alias.set('@', resolve('src'))
     },
     configureWebpack: () => {},
-
     devServer: {
         open: true,  // 启动服务自动打开浏览器
+        port:8888,
         proxy: {
-            '/host': {
-                target: "http://10.206.20.116/serviceCloud",
+            '/basic': {
+                target: "http://localhost",
                 changeOrigin: true,
                 pathRewrite: {
-                    "/host": "/"
+                    "/basic": ""
                 }
             },
         }

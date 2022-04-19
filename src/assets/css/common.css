@@ -1,0 +1,22 @@
+@import "./font/iconfont.css";
+
+.mr-10{
+    margin-right: 10px;
+}
+.mr-20{
+    margin-right: 20px;
+}
+.el-tag{
+    cursor: pointer;
+}
+.success-text{
+    color:#67c23a;
+}
+.danger-text{
+    color:#f56c6c;
+}
+.el-pagination{
+    margin-top: 20px;
+    display: flex;
+    justify-content: right;
+}

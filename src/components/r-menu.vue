@@ -22,13 +22,13 @@
         </el-icon>
         <span>用户管理</span>
       </el-menu-item>
-      <el-menu-item index="1-2">
+      <el-menu-item index="/basicRole">
         <el-icon>
           <medal/>
         </el-icon>
         <span>角色管理</span>
       </el-menu-item>
-      <el-menu-item index="1-3">
+      <el-menu-item index="/basicMenu">
         <el-icon>
           <medal/>
         </el-icon>

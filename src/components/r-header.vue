@@ -2,10 +2,14 @@
   <div class="b-header">
     <el-dropdown trigger="click" @command="handlerCommand">
         <span class="el-dropdown-link">
-          <span class="user-head">{{ user.name.slice(0,1) }}</span>
+          <span class="user-head" :title="user.name">{{ user.name.slice(0, 1) }}</span>
           <el-icon class="el-icon--right"><arrow-down/></el-icon>
         </span>
       <template #dropdown>
+        <div class="user-name">
+          <span class="iconfont icon-account mr-10"></span>
+          <span>{{ user.name }}</span>
+        </div>
         <el-dropdown-menu>
           <el-dropdown-item command="info">
             <el-icon>
@@ -70,6 +74,16 @@ export default defineComponent({
 })
 </script>
 
+<style lang="scss">
+.el-scrollbar{
+  .user-name {
+    border-bottom: 1px solid #eee;
+    padding: 5px 14px;
+    font-weight: 700;
+    color: #555;
+  }
+}
+</style>
 <style scoped lang="scss">
 .b-header {
   height: 100%;

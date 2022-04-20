@@ -2,7 +2,7 @@
   <div class="user-page">
     <div class="search-box">
       <el-input v-model="searchData.account" placeholder="登录账号" style="width: 200px;" class="mr-20" />
-      <el-input v-model="searchData.name" placeholder="用户名" style="width: 200px;" class="mr-20" />
+      <el-input v-model="searchData.name" placeholder="真实姓名" style="width: 200px;" class="mr-20" />
       <el-select v-model="searchData.status" style="width: 200px;" class="mr-20" placeholder="状态">
         <el-option label="启用" value="1"></el-option>
         <el-option label="禁用" value="0"></el-option>
@@ -14,7 +14,7 @@
     <div class="data-list" v-loading="loading">
       <el-table :data="userList" style="width: 100%">
         <el-table-column prop="account" label="登录账号" />
-        <el-table-column prop="name" label="用户名" />
+        <el-table-column prop="name" label="真实姓名" />
         <el-table-column prop="email" label="邮箱" />
         <el-table-column prop="createTime" label="创建时间" width="200" />
         <el-table-column prop="updateTime" label="更新时间" width="200" />

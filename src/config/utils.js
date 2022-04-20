@@ -1,3 +1,5 @@
+import router from "@/router";
+
 /**
  * @description 日期格式化
  *
@@ -206,7 +208,10 @@ function setLoginInfo(token,user={}){
  */
 function getLoginInfo(){
   let user = localStorage.getItem('user')
-  return user ? JSON.parse(user) : {}
+  if(!user){
+    router.replace('/login')
+  }else
+    return JSON.parse(user)
 }
 
 /**

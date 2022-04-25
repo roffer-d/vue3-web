@@ -1,15 +1,16 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory,createWebHashHistory } from 'vue-router'
 const modulesFiles = require.context('@/view', true, /router.js$/);
 let childrenRouters = [];
 modulesFiles.keys().forEach((key)=>{
   childrenRouters = childrenRouters.concat(modulesFiles(key).default)
 })
 const Router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [
     {
       path: '/',
       name: 'home',
+      redirect: 'basicUser',
       component: () => import('@/view/home'),
       meta: {
         title: "系统管理"

@@ -2,15 +2,8 @@
   <router-view />
 </template>
 
-<script>
-export default {
-  setup(props,content){
+<script setup>
 
-    return {
-
-    }
-  }
-}
 </script>
 
 

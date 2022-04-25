@@ -1,18 +1,18 @@
 import {post,form} from '@/config/request'
 const api = {
-    list:'/basicUserRole/listPage',//用户角色列表
-    save:'/basicUserRole/save',//添加用户角色
-    update:'/basicUserRole/update',//更新用户角色
-    del:'/basicUserRole/delete',//删除用户角色
-    getById:'/basicUserRole/getById',//根据id获取用户角色信息
+    list:'/basicUser/listPage',//用户列表
+    save:'/basicUser/save',//添加用户
+    update:'/basicUser/update',//更新用户
+    del:'/basicUser/delete',//删除用户
+    getById:'/basicUser/getById',//根据id获取用户信息
 }
 
 /**
- * @desc 查询用户角色列表
+ * @desc 查询用户列表
  * @params:
  *   params(Object): 参数
  * @auth Roffer
- * @date 2022-04-20
+ * @date 2022-04-25
  *
  */
 export function query(params={}){
@@ -20,11 +20,11 @@ export function query(params={}){
 }
 
 /**
- * @desc 更新用户角色
+ * @desc 更新用户
  * @params:
  *   params(Object): 参数
  * @auth Roffer
- * @date 2022-04-20
+ * @date 2022-04-25
  *
  */
 export function update(params={}){
@@ -32,11 +32,11 @@ export function update(params={}){
 }
 
 /**
- * @desc 删除用户角色
+ * @desc 删除用户
  * @params:
  *   params(Object): 参数
  * @auth Roffer
- * @date 2022-04-20
+ * @date 2022-04-25
  *
  */
 export function del(params={}){
@@ -44,11 +44,11 @@ export function del(params={}){
 }
 
 /**
- * @desc 添加用户角色
+ * @desc 添加用户
  * @params:
  *   params(Object): 参数
  * @auth Roffer
- * @date 2022-04-20
+ * @date 2022-04-25
  *
  */
 export function save(params={}){
@@ -56,11 +56,11 @@ export function save(params={}){
 }
 
 /**
- * @desc 根据Id获取用户角色信息
+ * @desc 根据Id获取用户信息
  * @params:
  *   params(Object): 参数
  * @auth Roffer
- * @date 2022-04-20
+ * @date 2022-04-25
  *
  */
 export function getById(params={}){

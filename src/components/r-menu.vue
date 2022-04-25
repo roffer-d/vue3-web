@@ -3,20 +3,20 @@
       active-text-color="#ffd04b"
       background-color="#545c64"
       class="el-menu-vertical-demo"
-      default-active="/user"
+      default-active="/basicUser"
       text-color="#fff"
       :router="true"
       @open="handleOpen"
       @close="handleClose"
   >
-    <el-sub-menu index="1">
+    <el-sub-menu index="/home">
       <template #title>
         <el-icon>
           <platform/>
         </el-icon>
         <span>系统管理</span>
       </template>
-      <el-menu-item index="/user">
+      <el-menu-item index="/basicUser">
         <el-icon>
           <medal/>
         </el-icon>

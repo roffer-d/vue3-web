@@ -12,7 +12,7 @@ const api = {
  * @params:
  *   params(Object): 参数
  * @auth Roffer
- * @date 2022-04-20
+ * @date 2022-04-25
  *
  */
 export function query(params={}){
@@ -24,7 +24,7 @@ export function query(params={}){
  * @params:
  *   params(Object): 参数
  * @auth Roffer
- * @date 2022-04-20
+ * @date 2022-04-25
  *
  */
 export function update(params={}){
@@ -36,7 +36,7 @@ export function update(params={}){
  * @params:
  *   params(Object): 参数
  * @auth Roffer
- * @date 2022-04-20
+ * @date 2022-04-25
  *
  */
 export function del(params={}){
@@ -48,7 +48,7 @@ export function del(params={}){
  * @params:
  *   params(Object): 参数
  * @auth Roffer
- * @date 2022-04-20
+ * @date 2022-04-25
  *
  */
 export function save(params={}){
@@ -60,7 +60,7 @@ export function save(params={}){
  * @params:
  *   params(Object): 参数
  * @auth Roffer
- * @date 2022-04-20
+ * @date 2022-04-25
  *
  */
 export function getById(params={}){

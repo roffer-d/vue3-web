@@ -8,7 +8,6 @@
         <el-header>
           <r-header />
         </el-header>
-        <r-breadcrumb />
         <el-main>
           <router-view></router-view>
         </el-main>

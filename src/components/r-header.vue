@@ -1,5 +1,6 @@
 <template>
   <div class="b-header">
+    <r-breadcrumb />
     <el-dropdown trigger="click" @command="handlerCommand">
         <span class="el-dropdown-link">
           <span class="user-head" :title="user.name">{{ user.name.slice(0, 1) }}</span>
@@ -89,7 +90,7 @@ export default defineComponent({
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
 
   .el-dropdown-link {
     display: flex;

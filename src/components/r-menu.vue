@@ -3,7 +3,7 @@
       active-text-color="#ffd04b"
       background-color="#545c64"
       class="el-menu-vertical-demo"
-      default-active="/basicUser"
+      :default-active="defaultActive"
       text-color="#fff"
       :router="true"
       @open="handleOpen"
@@ -17,21 +17,15 @@
         <span>系统管理</span>
       </template>
       <el-menu-item index="/basicUser">
-        <el-icon>
-          <medal/>
-        </el-icon>
+        <i class="iconfont icon-user"></i>
         <span>用户管理</span>
       </el-menu-item>
       <el-menu-item index="/basicRole">
-        <el-icon>
-          <medal/>
-        </el-icon>
+        <i class="iconfont icon-role"></i>
         <span>角色管理</span>
       </el-menu-item>
       <el-menu-item index="/basicMenu">
-        <el-icon>
-          <medal/>
-        </el-icon>
+        <i class="iconfont icon-menu"></i>
         <span>菜单管理</span>
       </el-menu-item>
     </el-sub-menu>
@@ -39,8 +33,21 @@
 </template>
 
 <script>
+import {reactive,toRefs} from 'vue'
+import {useRoute} from 'vue-router'
+
 export default {
-  name: "r-menu"
+  name: "r-menu",
+  setup(){
+    const route = useRoute()
+    const data = reactive({
+      defaultActive: route.path,
+    })
+
+    return {
+      ...toRefs(data)
+    }
+  }
 }
 </script>
 
@@ -48,5 +55,9 @@ export default {
 .el-menu {
   height: 100vh;
   //background: #545c64;
+
+  .iconfont{
+    margin-right: 5px;
+  }
 }
 </style>

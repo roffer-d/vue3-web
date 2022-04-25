@@ -1,10 +1,23 @@
 import {post,form} from '@/config/request'
 const api = {
     list:'/basicMenu/listPage',//菜单列表
+    menuTree:'/basicMenu/menuTree',//菜单树
     save:'/basicMenu/save',//添加菜单
     update:'/basicMenu/update',//更新菜单
     del:'/basicMenu/delete',//删除菜单
     getById:'/basicMenu/getById',//根据id获取菜单信息
+}
+
+/**
+  * @desc 菜单树
+  * @params:
+  *   params(Object): 参数
+  * @auth Roffer
+  * @date 2022/4/25 15:02
+  *
+  */
+export function menuTree(params={}){
+    return form(api.menuTree,params)
 }
 
 /**

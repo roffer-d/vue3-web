@@ -1,11 +1,3 @@
-/*
- * @Description: 
- * @Version: 1.0
- * @Autor: Tangtao
- * @Date: 2021-03-23 18:39:08
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-04-11 13:28:45
- */
 const state = {
   source: [],
   name: "1232132",

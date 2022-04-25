@@ -1,11 +1,3 @@
-/*
- * @Description: 
- * @Version: 1.0
- * @Autor: Tangtao
- * @Date: 2021-03-23 18:39:08
- * @LastEditors: Seven
- * @LastEditTime: 2021-03-23 20:59:47
- */
 const state = () => ({
   source: []
 })

@@ -10,10 +10,10 @@
         <div class="data-list" v-loading="data.loading">
             <el-table :data="data.basicMenuList" style="width: 100%">
                 <el-table-column prop="parentId" label="父级菜单" />
-                <el-table-column prop="name" label="名称" />
+                <el-table-column prop="name" label="名称" width="120" />
                 <el-table-column prop="router" label="路由" />
-                <el-table-column prop="icon" label="图标" />
-                <el-table-column prop="sort" label="排序" />
+                <el-table-column prop="icon" label="图标" width="80" />
+                <el-table-column prop="sort" label="排序" width="80" />
                 <el-table-column prop="remark" label="菜单说明" />
                 <el-table-column prop="createTime" label="创建时间" />
                 <el-table-column prop="updateTime" label="更新时间" />

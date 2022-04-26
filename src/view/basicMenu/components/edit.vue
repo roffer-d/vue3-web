@@ -3,7 +3,8 @@
     <el-form ref="basicMenuFormRef" :model="data.form" :rules="data.rules" label-width="80px">
       <el-form-item label="父级菜单" prop="parentId">
         <el-cascader
-            v-model="data.form.parentId"
+            ref="parentMenuRef"
+            v-model="data.form.pid"
             :options="data.menuList"
             :props="cascaderProps"
             @change="parentMenuChange"
@@ -37,6 +38,8 @@ import * as basicMenuApi from '../api'
 import {ElMessage} from 'element-plus'
 
 const basicMenuFormRef = ref(null)
+const parentMenuRef = ref(null)
+
 const props = defineProps(['id'])
 const emit = defineEmits(['success']);
 const cascaderProps = reactive({
@@ -50,7 +53,9 @@ const cascaderProps = reactive({
 const data = reactive({
   form: {
     id: '',
-    parentId: '',//父级菜单id
+    pid: '',//直属父级id
+    pids: '',//所有父级id
+    pnames: '',//所有父级名称
     name: '',//名称
     router: '',//路由
     icon: '',//图标
@@ -58,7 +63,7 @@ const data = reactive({
     remark: '',//菜单说明
   },
   rules: {
-    parentId: [
+    pid: [
       {required: true, message: '父级菜单不能为空'},
     ],
     name: [
@@ -114,8 +119,12 @@ const getMenuList = () => {
 
 /** 父级菜单值改变触发 **/
 const parentMenuChange = (val)=>{
-  console.log(data.form,'aaaa')
-  console.log(val,'aaaa')
+  const checkedNode = parentMenuRef.value.getCheckedNodes()[0]
+  const pathValues = checkedNode.pathValues.join('/')
+  const pathLabels = checkedNode.pathLabels.join('/')
+
+  data.form.pids = pathValues
+  data.form.pnames = pathLabels
 }
 
 /** 提交保存 **/

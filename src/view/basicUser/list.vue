@@ -15,7 +15,7 @@
     <div class="data-list" v-loading="data.loading">
       <el-table :data="data.basicUserList" style="width: 100%">
         <el-table-column prop="name" label="真实姓名" width="140" />
-        <el-table-column prop="account" label="登录账号" width="140" />
+        <el-table-column prop="account" label="登录账号" width="100" />
         <el-table-column prop="email" label="邮箱"/>
         <el-table-column prop="createTime" label="创建时间"/>
         <el-table-column prop="updateTime" label="更新时间"/>
@@ -25,15 +25,17 @@
             <span class="success-text" v-else-if="row.status == '1'">已启用</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200">
+        <el-table-column label="操作" width="240">
           <template #default="{row}">
-            <template v-if="row.id != data.loginUser.id">
+            <template v-if="row.id != data.loginUser.id && row.id != '1516296092063412225'">
               <el-tag class="mr-10" @click="toggleStatus(row)" type="success" v-if="row.status == '0'">启用</el-tag>
               <el-tag class="mr-10" @click="toggleStatus(row)" type="danger" v-else-if="row.status == '1'">禁用</el-tag>
-              <el-tag class="mr-10" @click="handlerEdit(row)" type="danger" >编辑</el-tag>
+              <el-tag class="mr-10" @click="handlerEdit(row)" type="success" >编辑</el-tag>
               <el-tag class="mr-10" @click="handlerDelete(row)" type="danger" >删除</el-tag>
+              <el-tag class="mr-10" @click="handlerSetRole(row)" type="success" >角色</el-tag>
             </template>
-            <span v-else class="success-text">当前登录,不可操作</span>
+            <span v-else-if="row.id == data.loginUser.id" class="success-text">当前登录,不可操作</span>
+            <span v-else-if="row.id == '1516296092063412225'" class="success-text">不可操作超级管理员</span>
           </template>
         </el-table-column>
       </el-table>
@@ -161,6 +163,11 @@ const handlerDelete = (basicUser) => {
           }
         })
       })
+}
+
+/** 配置角色 **/
+const handlerSetRole = (user)=>{
+
 }
 
 /** 显示添加用户弹窗 **/

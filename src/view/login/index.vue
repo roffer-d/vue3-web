@@ -5,12 +5,12 @@
       <div class="form">
         <div class="form-item">
           <span class="iconfont icon-account"></span>
-          <input type="text" v-model="form.account" placeholder="登录账号" @input="checkAccount">
+          <input type="text" v-model="form.account" placeholder="登录账号" @input="checkAccount" @keyup.enter="handlerLogin">
           <div class="error" v-show="accountError">{{accountError}}</div>
         </div>
         <div class="form-item">
           <span class="iconfont icon-password"></span>
-          <input type="password" v-model="form.password" placeholder="登录密码" @input="checkPassword">
+          <input type="password" v-model="form.password" placeholder="登录密码" @input="checkPassword" @keyup.enter="handlerLogin">
           <div class="error" v-show="passwordError">{{passwordError}}</div>
         </div>
         <div class="login-btn" @click="handlerLogin">
@@ -72,7 +72,7 @@ export default defineComponent({
           if(res.code == 200){
             localStorage.setItem("token",`Bearer ${res.data.token}`)
             localStorage.setItem("user",JSON.stringify(res.data.user))
-            router.replace('/user')
+            router.replace('/basicUser')
           }
         })
       }

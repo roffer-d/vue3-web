@@ -55,6 +55,7 @@ const data = reactive({
   form: {
     id: '',
     pid: '',//直属父级id
+    pname: '',//直属父级名称
     pids: '',//所有父级id
     pnames: '',//所有父级名称
     name: '',//名称
@@ -124,6 +125,7 @@ const parentMenuChange = (val)=>{
   const pathValues = checkedNode.pathValues.join('/')
   const pathLabels = checkedNode.pathLabels.join('/')
 
+  data.form.pname = checkedNode.label
   data.form.pids = pathValues
   data.form.pnames = pathLabels
 }

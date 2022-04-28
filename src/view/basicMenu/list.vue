@@ -8,7 +8,7 @@
             <el-button type="success" @click="handlerAdd" style="float: right">添加</el-button>
         </div>
         <div class="data-list" v-loading="data.loading">
-            <el-table :data="data.basicMenuList" style="width: 100%">
+            <el-table :data="data.basicMenuList" style="width: 100%" row-key="id">
                 <el-table-column prop="pnames" label="父级菜单" />
                 <el-table-column prop="name" label="名称" width="120" />
                 <el-table-column prop="router" label="路由" />

@@ -8,6 +8,7 @@
             :options="data.menuList"
             :props="cascaderProps"
             @change="parentMenuChange"
+            style="width: 100%"
             placeholder="父级菜单"/>
       </el-form-item>
       <el-form-item label="名称" prop="name">

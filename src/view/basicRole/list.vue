@@ -124,7 +124,7 @@ const handlerDelete = (basicRole) => {
       })
 }
 
-/** 显示角色权限配置弹窗 **/
+/** 显示角色菜单权限配置弹窗 **/
 const handlerAuth = () => {
   data.authVisible = true
 }

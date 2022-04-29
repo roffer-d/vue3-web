@@ -5,6 +5,8 @@ const api = {
     update:'/basicRole/update',//更新角色
     del:'/basicRole/delete',//删除角色
     getById:'/basicRole/getById',//根据id获取角色信息
+    getRoleAuth:'/basicRole/getRoleAuth',//获取角色关联的权限
+    saveRoleAuth:'/basicRole/saveRoleAuth',//保存角色权限
 }
 
 /**
@@ -65,4 +67,28 @@ export function save(params={}){
  */
 export function getById(params={}){
     return form(api.getById,params)
+}
+
+/**
+  * @desc 获取角色关联的权限
+  * @params:
+  *   params(Object): 参数
+  * @auth Roffer
+  * @date 2022/4/29 15:01
+  *
+  */
+export function getRoleAuth(params={}){
+    return form(api.getRoleAuth,params)
+}
+
+/**
+ * @desc 保存角色权限
+ * @params:
+ *   params(Object): 参数
+ * @auth Roffer
+ * @date 2022/4/29 15:01
+ *
+ */
+export function saveRoleAuth(params={}){
+    return post(api.saveRoleAuth,params)
 }

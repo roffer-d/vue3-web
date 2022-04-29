@@ -29,10 +29,10 @@
                     v-model:currentPage="data.searchData.pageNum"
                     v-model:page-size="data.searchData.pageSize"
                     :hide-on-single-page="hidePager"
-                    :page-sizes="pageSizeOption"
+                    :page-sizes="data.pageSizeOption"
                     small
                     layout="total, sizes, prev, pager, next, jumper"
-                    :total="total"
+                    :total="data.total"
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
             />
@@ -101,7 +101,7 @@ const handleCurrentChange = (pageNum)=>{
 
 /** 删除菜单 **/
 const handlerDelete = (basicMenu) => {
-    ElMessageBox.confirm(`确认删除`, `删除提示`,
+    ElMessageBox.confirm(`选中菜单下所有子菜单也将被删除，确认删除?`, `删除提示`,
             {
                 confirmButtonText: '删除',
                 cancelButtonText: '取消',

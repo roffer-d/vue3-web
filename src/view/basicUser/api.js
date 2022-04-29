@@ -5,6 +5,9 @@ const api = {
     update:'/basicUser/update',//更新用户
     del:'/basicUser/delete',//删除用户
     getById:'/basicUser/getById',//根据id获取用户信息
+    userRole:'/basicUser/userRole',//获取用户角色
+    roleList:'/basicRole/list',//获取全部角色
+    saveRole:'/basicUser/saveRole',//保存用户角色
 }
 
 /**
@@ -65,4 +68,40 @@ export function save(params={}){
  */
 export function getById(params={}){
     return form(api.getById,params)
+}
+
+/**
+  * @desc 获取全部角色
+  * @params:
+  *   params(Object): 参数
+  * @auth Roffer
+  * @date 2022/4/29 10:48
+  *
+  */
+export function getRoleList(params={}){
+    return form(api.roleList,params)
+}
+
+/**
+  * @desc 获取用户角色
+  * @params:
+  *   params(Object): 参数
+  * @auth Roffer
+  * @date 2022/4/29 11:25
+  *
+  */
+export function getUserRoleData(params={}){
+    return form(api.userRole,params)
+}
+
+/**
+  * @desc 保存用户角色
+  * @params:
+  *   params(Object): 参数
+  * @auth Roffer
+  * @date 2022/4/29 10:48
+  *
+  */
+export function saveRole(params={}){
+    return form(api.saveRole,params)
 }

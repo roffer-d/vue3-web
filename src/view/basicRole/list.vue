@@ -41,13 +41,13 @@
       <edit :id="data.basicRoleId" @success="addSuccess" v-if="data.modelVisible"/>
     </el-dialog>
 
-    <!-- 角色权限配置 -->
-    <el-dialog v-model="data.authVisible" title="角色权限配置" width="50%"
+    <!-- 菜单权限配置 -->
+    <el-dialog v-model="data.authVisible" title="菜单权限配置" width="60%"
                :close-on-click-modal="false"
                :close-on-press-escape="false"
                @closed="authClosed"
     >
-
+      <role-auth :role="data.role" @success="handlerAuthSuccess" @cancel="handlerAuthCancel" v-if="data.authVisible"/>
     </el-dialog>
   </div>
 </template>
@@ -57,6 +57,7 @@ import {ref, reactive, toRefs, computed, onMounted} from 'vue'
 import * as basicRoleApi from './api'
 import {ElMessageBox, ElMessage} from 'element-plus'
 import edit from './components/edit'
+import roleAuth from './components/roleAuth'
 
 const data = reactive({
   pageSizeOption: [10, 20, 50, 100],
@@ -72,6 +73,7 @@ const data = reactive({
   authVisible: false,
   modelTitle: '添加角色',
   basicRoleId: undefined,
+  role: undefined,
 })
 
 /** 是否隐藏分页组件，当数据总条数小于每页显示的数据条数时隐藏 **/
@@ -124,9 +126,24 @@ const handlerDelete = (basicRole) => {
       })
 }
 
-/** 显示角色菜单权限配置弹窗 **/
-const handlerAuth = () => {
+/** 显示菜单权限配置弹窗 **/
+const handlerAuth = (basicRole) => {
+  data.role = basicRole
   data.authVisible = true
+}
+
+/** 保存菜单权限成功 **/
+const handlerAuthSuccess = () =>{
+  ElMessage({
+    type: 'success',
+    message: `菜单权限配置成功!`
+  })
+  data.authVisible = false
+}
+
+/** 取消菜单权限 **/
+const handlerAuthCancel = ()=>{
+  data.authVisible = false
 }
 
 /** 显示添加角色弹窗 **/

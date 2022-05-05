@@ -101,11 +101,18 @@ let hidePager = computed(() => {
 })
 
 /** 获取了新数据时，选中之前已经选择了的权限 **/
-const checkedAuth = () => {
-  data.basicMenuList.forEach(item => {
+const checkedAuth = (dataList) => {
+  dataList = dataList || data.basicMenuList
+
+  dataList.forEach(item => {
     if (data.checkedInfo[item.id]) {
       item.checkedList = data.checkedInfo[item.id]
       item.checkAll = data.checkedInfo[item.id].length == 7//判断是否全选
+    }
+
+    /** 递归匹配选中 **/
+    if(item.children && item.children.length){
+      checkedAuth(item.children)
     }
   })
 }

@@ -159,7 +159,7 @@ const toggleStatus = (user) => {
 
 /** 删除用户 **/
 const handlerDelete = (basicUser) => {
-  ElMessageBox.confirm(`确认删除`, `删除提示`,
+  ElMessageBox.confirm(`将删除该用户以及该用户拥有的所有角色和权限，确认删除？`, `删除提示`,
       {
         confirmButtonText: '删除',
         cancelButtonText: '取消',

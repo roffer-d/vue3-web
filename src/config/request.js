@@ -5,7 +5,10 @@ import axios from 'axios'
 import qs from 'qs'
 import {isObject,removeLoginInfo} from './utils'
 import { h } from 'vue'
+import {useRouter} from 'vue-router'
 import { ElMessage,ElNotification } from 'element-plus'
+
+const router = useRouter()
 
 
 // axios默认配置
@@ -165,7 +168,7 @@ axiosDefault.interceptors.response.use(
                 //移除登录信息
                 removeLoginInfo()
                 //未登录,跳转到登录页
-                location.href = '/login'
+                router.replace('/login')
             }
         }
 
@@ -176,7 +179,7 @@ axiosDefault.interceptors.response.use(
             let data = error.response.data
             data = typeof data === 'string' ? data : JSON.stringify(data)
             if(data.indexOf('code=401') !== -1){//登录超时
-                location.href = '/login'
+                router.replace('/login')
             }
         }else if(error.message === `timeout of 3000ms exceeded`){
             ElNotification({

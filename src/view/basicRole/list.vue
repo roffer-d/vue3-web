@@ -107,7 +107,7 @@ const handleCurrentChange = (pageNum) => {
 
 /** 删除角色 **/
 const handlerDelete = (basicRole) => {
-  ElMessageBox.confirm(`确认删除`, `删除提示`,
+  ElMessageBox.confirm(`将删除角色、用户关联的该角色、角色关联的权限,确认删除？`, `删除提示`,
       {
         confirmButtonText: '删除',
         cancelButtonText: '取消',

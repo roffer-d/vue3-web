@@ -101,7 +101,7 @@ const handleCurrentChange = (pageNum)=>{
 
 /** 删除菜单 **/
 const handlerDelete = (basicMenu) => {
-    ElMessageBox.confirm(`选中菜单下所有子菜单也将被删除，确认删除?`, `删除提示`,
+    ElMessageBox.confirm(`选中菜单下所有子菜单也将被删除，同时还将删除关联该菜单及所有子菜单的角色，确认删除?`, `删除提示`,
             {
                 confirmButtonText: '删除',
                 cancelButtonText: '取消',

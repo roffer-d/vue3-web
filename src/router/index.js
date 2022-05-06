@@ -33,7 +33,7 @@ const Router = createRouter({
 })
 
 Router.beforeEach((to, from) => {
-  const filterPath = ['/login']
+  const filterPath = ['/login','/404']
   if(filterPath.includes(to.path)){
     return true
   }

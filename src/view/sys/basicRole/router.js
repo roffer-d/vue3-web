@@ -1,6 +1,6 @@
 export default [
     {
-        path: '/basicRole',
+        path: '/sys/basicRole',
         name: 'basicRole',
         component: () => import('@/view/sys/basicRole/list'),
         meta: {

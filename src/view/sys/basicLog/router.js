@@ -1,6 +1,6 @@
 export default [
     {
-        path: '/basicLog',
+        path: '/sys/basicLog',
         name: 'basicLog',
         component: () => import('@/view/sys/basicLog/list'),
         meta: {

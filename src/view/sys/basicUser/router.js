@@ -1,6 +1,6 @@
 export default [
     {
-        path: '/basicUser',
+        path: '/sys/basicUser',
         name: 'basicUser',
         component: () => import('@/view/sys/basicUser/list'),
         meta: {

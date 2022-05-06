@@ -1,6 +1,6 @@
 export default [
     {
-        path: '/basicMenu',
+        path: '/sys/basicMenu',
         name: 'basicMenu',
         component: () => import('@/view/sys/basicMenu/list'),
         meta: {

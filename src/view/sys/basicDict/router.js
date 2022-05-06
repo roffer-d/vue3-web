@@ -1,6 +1,6 @@
 export default [
     {
-        path: '/basicDict',
+        path: '/sys/basicDict',
         name: 'basicDict',
         component: () => import('@/view/sys/basicDict/list'),
         meta: {

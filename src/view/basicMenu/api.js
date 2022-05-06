@@ -1,4 +1,4 @@
-import {post,form} from '@/config/request'
+import {form} from '@/config/request'
 const api = {
     list:'/basicMenu/listPage',//菜单列表
     menuTree:'/basicMenu/menuTree',//菜单树

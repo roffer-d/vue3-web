@@ -17,15 +17,11 @@
   </div>
 </template>
 
-<script >
-import { defineComponent, getCurrentInstance} from 'vue'
-import { useRoute, useRouter } from "vue-router"
+<script>
+import {defineComponent} from 'vue'
 
 export default defineComponent({
-  setup(props, context){
-    const { proxy, ctx } = getCurrentInstance()
-    const _this = ctx
-
+  setup(){
     const handleOpen = (key, keyPath) => {
       console.log(key, keyPath)
     }

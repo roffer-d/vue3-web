@@ -1,18 +1,20 @@
 <template>
     <div class="basicDict-page">
         <div class="search-box">
-            <el-input v-model="data.searchData.code" placeholder="字典标识" style="width: 200px;" class="mr-20" />
-            <el-input v-model="data.searchData.name" placeholder="字典名称" style="width: 200px;" class="mr-20" />
-            <el-input v-model="data.searchData.remark" placeholder="字典描述" style="width: 200px;" class="mr-20" />
+            <el-input v-model="data.searchData.name" placeholder="名称" style="width: 200px;" class="mr-20" />
+            <el-input v-model="data.searchData.code" placeholder="值" style="width: 200px;" class="mr-20" />
+            <el-input v-model="data.searchData.type" placeholder="分类" style="width: 200px;" class="mr-20" />
+            <el-input v-model="data.searchData.remark" placeholder="描述" style="width: 200px;" class="mr-20" />
             <el-button class="mr-10" type="primary" @click="search">查询</el-button>
             <el-button class="mr-10" @click="reset">重设</el-button>
             <el-button type="success" @click="handlerAdd" style="float: right">添加</el-button>
         </div>
         <div class="data-list" v-loading="data.loading">
             <el-table :data="data.basicDictList" style="width: 100%">
-                <el-table-column prop="code" label="字典标识" />
-                <el-table-column prop="name" label="字典名称" />
-                <el-table-column prop="remark" label="字典描述" />
+                <el-table-column prop="name" label="名称" />
+                <el-table-column prop="code" label="值" />
+                <el-table-column prop="type" label="分类" />
+                <el-table-column prop="remark" label="描述" />
                 <el-table-column prop="createTime" label="创建时间" />
                 <el-table-column prop="updateTime" label="更新时间" />
                 <el-table-column label="操作" width="200" >
@@ -57,9 +59,10 @@ const data = reactive({
     searchData: {
         pageNum: 1,
         pageSize: 10,
-        code:undefined,//字典标识
-        name:undefined,//字典名称
-        remark:undefined,//字典描述
+        name:undefined,//名称
+        code:undefined,//值
+        type:undefined,//分类
+        remark:undefined,//描述
     },
     basicDictList: [],
     total: 0,
@@ -148,9 +151,10 @@ const reset = () => {
     data.searchData = {
         pageNum: 1,
         pageSize: 10,
-        code:undefined,//字典标识
-        name:undefined,//字典名称
-        remark:undefined,//字典描述
+        name:undefined,//名称
+        code:undefined,//值
+        type:undefined,//分类
+        remark:undefined,//描述
     }
     search()
 }

@@ -13,13 +13,16 @@
         <template #default="{row}">
           <div style="display: flex">
             <el-checkbox
-                         v-model="row.checkAll"
-                         size="small" label="all"
-                         style="margin-right: 20px"
-                         @change="(val)=>handlerCheckAll(val,row)">全选
+                v-model="row.checkAll"
+                size="small" label="all"
+                style="margin-right: 20px"
+                @change="(val)=>handlerCheckAll(val,row)">全选
             </el-checkbox>
             <el-checkbox-group size="small" v-model="row.checkedList" @change="(val)=>handlerAuthChange(val,row)">
-              <el-checkbox v-for="(item,index) in data.typeList" :label="item.value">{{ item.label }}</el-checkbox>
+              <el-checkbox :key="index" v-for="(item,index) in data.typeList" :label="item.code">{{
+                  item.name
+                }}
+              </el-checkbox>
             </el-checkbox-group>
           </div>
         </template>
@@ -45,13 +48,11 @@
   </div>
 </template>
 <script setup>
-import {reactive, ref, onBeforeMount, computed} from 'vue'
-import {useRoute, useRouter} from 'vue-router'
+import {reactive, onBeforeMount, computed, defineProps, defineEmits} from 'vue'
 import {getRoleAuth as getRoleAuthApi, saveRoleAuth as saveRoleAuthApi} from '../api'
 import * as basicMenuApi from "../../basicMenu/api";
+import {getDict} from "../../basicDict/api";
 
-const route = useRoute()
-const router = useRouter()
 const props = defineProps({
   role: {}
 })
@@ -67,32 +68,26 @@ const data = reactive({
   },
   total: 0,
   loading: true,
-  typeList: [
-    {label: '查询', value: 'query'},
-    {label: '添加', value: 'add'},
-    {label: '编辑', value: 'edit'},
-    {label: '删除', value: 'delete'},
-    {label: '导入', value: 'import'},
-    {label: '导出', value: 'export'},
-    {label: '审核', value: 'examine'},
-  ],
+  typeList: [],
   checkedInfo: {}
 })
 
 /** 全选、取消全选 **/
 const handlerCheckAll = (checked, row) => {
+  let key = `${row.id}_${row.authCode}`
   if (checked) {
-    row.checkedList = ['query', 'add', 'edit', 'delete', 'import', 'export', 'examine']
-    data.checkedInfo[row.id] = row.checkedList
+    row.checkedList = data.typeList.map(t => t.code)
+    data.checkedInfo[key] = row.checkedList
   } else {
     row.checkedList = []
-    delete data.checkedInfo[row.id]
+    delete data.checkedInfo[key]
   }
 }
 
 /** 权限勾选、取消勾选 **/
 const handlerAuthChange = (val, row) => {
-  data.checkedInfo[row.id] = val
+  let key = `${row.id}_${row.authCode}`
+  data.checkedInfo[key] = val
 }
 
 /** 是否隐藏分页组件，当数据总条数小于每页显示的数据条数时隐藏 **/
@@ -105,16 +100,25 @@ const checkedAuth = (dataList) => {
   dataList = dataList || data.basicMenuList
 
   dataList.forEach(item => {
-    if (data.checkedInfo[item.id]) {
-      item.checkedList = data.checkedInfo[item.id]
-      item.checkAll = data.checkedInfo[item.id].length == 7//判断是否全选
+    let key = `${item.id}_${item.authCode}`
+    if (data.checkedInfo[key]) {
+      item.checkedList = data.checkedInfo[key]
+      item.checkAll = data.checkedInfo[key].length == 7//判断是否全选
     }
 
     /** 递归匹配选中 **/
-    if(item.children && item.children.length){
+    if (item.children && item.children.length) {
       checkedAuth(item.children)
     }
   })
+}
+
+/** 获取所有操作数据的权限 **/
+const getTypeList = async () => {
+  const res = await getDict({type: 'auth'})
+  if (res.code == 200) {
+    data.typeList = res.data.list
+  }
 }
 
 /** 查询、搜索菜单 **/
@@ -153,7 +157,8 @@ const getRoleAuth = async () => {
   const res = await getRoleAuthApi({roleId: props.role.id})
   if (res.code == 200) {
     res.data.list.forEach(item => {
-      data.checkedInfo[item.menuId] = item.authorityType.split(',')
+      let key = `${item.menuId}_${item.authCode}`
+      data.checkedInfo[key] = item.authorityType.split(',')
     })
   }
 }
@@ -165,8 +170,10 @@ const saveRoleAuth = () => {
     auth: []
   }
   for (let key in data.checkedInfo) {
+    let array = key.split('_')
     params.auth.push({
-      menuId: key,
+      menuId: array[0],
+      authCode: array[1],
       authorityType: data.checkedInfo[key].join(',')
     })
   }
@@ -183,6 +190,7 @@ const cancelSave = () => {
 }
 
 onBeforeMount(() => {
+  getTypeList()
   getRoleAuth()
   getMenuList()
 })

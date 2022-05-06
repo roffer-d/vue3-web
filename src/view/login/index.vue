@@ -30,8 +30,6 @@ import md5 from 'js-md5'
 export default defineComponent({
   name: 'login',
   setup(props, content) {
-    const loginFormRef = ref(null)
-
     const data = reactive({
       accountError:'',
       passwordError:'',

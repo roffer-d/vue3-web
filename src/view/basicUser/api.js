@@ -1,4 +1,4 @@
-import {post,form} from '@/config/request'
+import {form} from '@/config/request'
 const api = {
     list:'/basicUser/listPage',//用户列表
     save:'/basicUser/save',//添加用户

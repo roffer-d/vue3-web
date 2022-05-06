@@ -73,13 +73,10 @@
 </template>
 
 <script setup>
-import {ref, reactive, toRefs, computed, onMounted} from 'vue'
+import {computed, onMounted, reactive} from 'vue'
 import * as basicUserApi from './api'
-import {ElMessageBox, ElMessage} from 'element-plus'
-import edit from './components/edit'
-import userRole from './components/userRole'
+import {ElMessage, ElMessageBox} from 'element-plus'
 import {getUser} from "@/config/utils";
-import UserRole from "./components/userRole";
 
 const data = reactive({
   pageSizeOption: [10, 20, 50, 100],

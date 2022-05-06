@@ -1,4 +1,5 @@
-import {post,form} from '@/config/request'
+import {form} from '@/config/request'
+
 const api = {
     login:'/login',//登录
     logOut:'/logOut',//退出登录

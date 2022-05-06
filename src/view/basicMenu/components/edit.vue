@@ -17,6 +17,9 @@
       <el-form-item label="路由" prop="router">
         <el-input v-model="data.form.router" placeholder="路由"/>
       </el-form-item>
+      <el-form-item label="权限标识" prop="authCode">
+        <el-input v-model="data.form.authCode" placeholder="权限标识"/>
+      </el-form-item>
       <el-form-item label="图标" prop="icon">
         <el-input v-model="data.form.icon" placeholder="图标"/>
       </el-form-item>
@@ -34,7 +37,7 @@
   </div>
 </template>
 <script setup>
-import {ref, reactive, onMounted} from 'vue'
+import {ref, reactive, onMounted,defineProps,defineEmits} from 'vue'
 import * as basicMenuApi from '../api'
 import {ElMessage} from 'element-plus'
 
@@ -60,6 +63,7 @@ const data = reactive({
     pnames: '',//所有父级名称
     name: '',//名称
     router: '',//路由
+    authCode: '',//权限标识
     icon: '',//图标
     sort: '',//排序
     remark: '',//菜单说明
@@ -73,6 +77,9 @@ const data = reactive({
     ],
     router: [
       {required: true, message: '路由不能为空'},
+    ],
+    authCode: [
+      {required: true, message: '权限标识不能为空'},
     ],
     // icon: [
     //     {required: true, message: '图标不能为空'},
@@ -120,7 +127,7 @@ const getMenuList = () => {
 }
 
 /** 父级菜单值改变触发 **/
-const parentMenuChange = (val)=>{
+const parentMenuChange = ()=>{
   const checkedNode = parentMenuRef.value.getCheckedNodes()[0]
   const pathValues = checkedNode.pathValues.join('/')
   const pathLabels = checkedNode.pathLabels.join('/')
@@ -133,7 +140,7 @@ const parentMenuChange = (val)=>{
 /** 提交保存 **/
 const submitForm = async (form) => {
   form = form || basicMenuFormRef.value
-  await form.validate((valid, fields) => {
+  await form.validate((valid) => {
     if (valid) {
       let form = JSON.parse(JSON.stringify(data.form))
 

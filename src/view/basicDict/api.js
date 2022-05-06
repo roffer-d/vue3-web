@@ -5,6 +5,7 @@ const api = {
     update:'/basicDict/update',//更新字典
     del:'/basicDict/delete',//删除字典
     getById:'/basicDict/getById',//根据id获取字典信息
+    getDict:'/basicDict/getDict',//获取所有操作数据的权限
 }
 
 /**
@@ -65,4 +66,16 @@ export function save(params={}){
  */
 export function getById(params={}){
     return form(api.getById,params)
+}
+
+/**
+  * @desc 获取所有操作数据的权限
+  * @params:
+  *   params(Object): 参数
+  * @auth Roffer
+  * @date 2022/5/6 14:56
+  *
+  */
+export function getDict(params={}){
+    return form(api.getDict,params)
 }

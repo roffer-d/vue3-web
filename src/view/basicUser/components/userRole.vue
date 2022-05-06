@@ -20,13 +20,10 @@
   </div>
 </template>
 <script setup>
-import {reactive, ref, onBeforeMount} from 'vue'
-import {useRoute, useRouter} from 'vue-router'
+import {onBeforeMount, reactive, ref,defineEmits,defineProps} from 'vue'
 import {getRoleList, getUserRoleData, saveRole} from '../api'
 import {ElMessage} from 'element-plus'
 
-const route = useRoute()
-const router = useRouter()
 const props = defineProps({
   user: {}
 })

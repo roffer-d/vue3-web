@@ -30,7 +30,7 @@
   </div>
 </template>
 <script setup>
-import {ref, reactive, onMounted} from 'vue'
+import {ref, reactive, onMounted,defineProps,defineEmits} from 'vue'
 import md5 from 'js-md5'
 import * as basicUserApi from '../api'
 import {ElMessage} from 'element-plus'
@@ -45,7 +45,7 @@ const validatePassword = (rule, value, callback) => {
     callback(new Error('密码不能为空'))
   } else {
     if (data.form.repassword) {
-      userFormRef.value.validateField('password', () => null)
+      basicUserFormRef.value.validateField('password', () => null)
     }
     callback()
   }
@@ -115,7 +115,7 @@ const getUser = () => {
 /** 提交保存 **/
 const submitForm = async (form) => {
   form = form || basicUserFormRef.value
-  await form.validate((valid, fields) => {
+  await form.validate((valid) => {
     if (valid) {
       let form = JSON.parse(JSON.stringify(data.form))
       form.password = md5(form.password)

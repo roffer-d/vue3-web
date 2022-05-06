@@ -1,14 +1,17 @@
 <template>
     <div class="basicDict-edit">
         <el-form ref="basicDictFormRef" :model="data.form" :rules="data.rules" label-width="80px">
-            <el-form-item label="字典标识" prop="code">
-                <el-input v-model="data.form.code" placeholder="字典标识"/>
+            <el-form-item label="名称" prop="name">
+                <el-input v-model="data.form.name" placeholder="名称"/>
             </el-form-item>
-            <el-form-item label="字典名称" prop="name">
-                <el-input v-model="data.form.name" placeholder="字典名称"/>
+            <el-form-item label="值" prop="code">
+                <el-input v-model="data.form.code" placeholder="值"/>
             </el-form-item>
-            <el-form-item label="字典描述" prop="remark">
-                <el-input v-model="data.form.remark" placeholder="字典描述"/>
+            <el-form-item label="分类" prop="type">
+                <el-input v-model="data.form.type" placeholder="分类"/>
+            </el-form-item>
+            <el-form-item label="描述" prop="remark">
+                <el-input v-model="data.form.remark" placeholder="描述"/>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm(basicDictFormRef)">保存</el-button>
@@ -29,19 +32,23 @@ const emit = defineEmits(['success']);
 const data = reactive({
     form: {
         id:'',
-        code:'',//字典标识
-        name:'',//字典名称
-        remark:'',//字典描述
+        name:'',//名称
+        code:'',//值
+        type:'',//分类
+        remark:'',//描述
     },
     rules:{
-        code: [
-            {required: true, message: '字典标识不能为空'},
-        ],
         name: [
-            {required: true, message: '字典名称不能为空'},
+            {required: true, message: '名称不能为空'},
+        ],
+        code: [
+            {required: true, message: '值不能为空'},
+        ],
+        type: [
+            {required: true, message: '分类不能为空'},
         ],
         remark: [
-            {required: true, message: '字典描述不能为空'},
+            {required: true, message: '描述不能为空'},
         ],
     }
 })

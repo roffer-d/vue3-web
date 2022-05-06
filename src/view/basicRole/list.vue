@@ -13,12 +13,9 @@
         <el-table-column prop="updateTime" label="更新时间"/>
         <el-table-column label="操作" width="260">
           <template #default="{row}">
-            <template v-if="row.id != '1518424205647986689'">
               <el-tag class="mr-10" @click="handlerEdit(row)" type="success">编辑</el-tag>
               <el-tag class="mr-10" @click="handlerAuth(row)" type="success">菜单权限</el-tag>
               <el-tag class="mr-10" @click="handlerDelete(row)" type="danger">删除</el-tag>
-            </template>
-            <span v-else class="success-text">不可操作超级管理员角色</span>
           </template>
         </el-table-column>
       </el-table>
@@ -56,7 +53,7 @@
 </template>
 
 <script setup>
-import {ref, reactive, toRefs, computed, onMounted} from 'vue'
+import {reactive,computed, onMounted} from 'vue'
 import * as basicRoleApi from './api'
 import {ElMessageBox, ElMessage} from 'element-plus'
 import edit from './components/edit'

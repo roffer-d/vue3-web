@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory,createWebHashHistory } from 'vue-router'
 import {getAuth} from "../config/utils";
-import {ElMessageBox, ElMessage} from 'element-plus'
+import {ElMessage} from 'element-plus'
 
 const modulesFiles = require.context('@/view', true, /router.js$/);
 let childrenRouters = [];
@@ -33,6 +33,11 @@ const Router = createRouter({
 })
 
 Router.beforeEach((to, from) => {
+  const filterPath = ['/login']
+  if(filterPath.includes(to.path)){
+    return true
+  }
+
   let result = true
   const auth = getAuth()
   if(auth){

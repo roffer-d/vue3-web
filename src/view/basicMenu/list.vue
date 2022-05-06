@@ -3,6 +3,7 @@
         <div class="search-box">
             <el-input v-model="data.searchData.name" placeholder="名称" style="width: 200px;" class="mr-20" />
             <el-input v-model="data.searchData.router" placeholder="路由" style="width: 200px;" class="mr-20" />
+            <el-input v-model="data.searchData.authCode" placeholder="权限标识" style="width: 200px;" class="mr-20" />
             <el-button class="mr-10" type="primary" @click="search">查询</el-button>
             <el-button class="mr-10" @click="reset">重设</el-button>
             <el-button type="success" @click="handlerAdd" style="float: right">添加</el-button>
@@ -12,6 +13,7 @@
                 <el-table-column prop="pname" label="父级菜单" />
                 <el-table-column prop="name" label="名称" width="120" />
                 <el-table-column prop="router" label="路由" />
+                <el-table-column prop="authCode" label="权限标识" />
                 <el-table-column prop="icon" label="图标" width="80" />
                 <el-table-column prop="sort" label="排序" width="80" />
                 <el-table-column prop="remark" label="菜单说明" />
@@ -49,7 +51,7 @@
 </template>
 
 <script setup>
-import {ref, reactive, toRefs, computed,onMounted} from 'vue'
+import {reactive,computed,onMounted} from 'vue'
 import * as basicMenuApi from './api'
 import {ElMessageBox, ElMessage} from 'element-plus'
 import edit from './components/edit'
@@ -61,6 +63,7 @@ const data = reactive({
         pageSize: 10,
         name:undefined,//名称
         router:undefined,//路由
+        authCode:undefined,//权限标识
     },
     basicMenuList: [],
     total: 0,
@@ -151,6 +154,7 @@ const reset = () => {
         pageSize: 10,
         name:undefined,//名称
         router:undefined,//路由
+        authCode:undefined,//权限标识
     }
     search()
 }

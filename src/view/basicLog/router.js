@@ -4,7 +4,7 @@ export default [
         name: 'basicLog',
         component: () => import('@/view/basicLog/list'),
         meta: {
-            title: "操作日志"
+            title: "操作日志管理"
         },
     }
 ]

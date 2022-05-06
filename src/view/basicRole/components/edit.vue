@@ -12,7 +12,7 @@
     </div>
 </template>
 <script setup>
-import {ref, reactive,onMounted} from 'vue'
+import {ref, reactive,onMounted,defineProps,defineEmits} from 'vue'
 import * as basicRoleApi from '../api'
 import {ElMessage} from 'element-plus'
 
@@ -53,7 +53,7 @@ const getUser = () => {
 /** 提交保存 **/
 const submitForm = async (form) => {
     form = form || basicRoleFormRef.value
-    await form.validate((valid, fields) => {
+    await form.validate((valid) => {
         if (valid) {
             let form = JSON.parse(JSON.stringify(data.form))
 

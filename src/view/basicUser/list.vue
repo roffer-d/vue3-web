@@ -78,7 +78,7 @@ import * as basicUserApi from './api'
 import {ElMessageBox, ElMessage} from 'element-plus'
 import edit from './components/edit'
 import userRole from './components/userRole'
-import {getLoginInfo} from "@/config/utils";
+import {getUser} from "@/config/utils";
 import UserRole from "./components/userRole";
 
 const data = reactive({
@@ -97,7 +97,7 @@ const data = reactive({
   modelVisible: false,
   modelTitle: '添加用户',
   basicUserId: undefined,
-  loginUser: getLoginInfo(),
+  loginUser: getUser(),
   user:{},
   roleVisible:false,
 })

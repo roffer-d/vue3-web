@@ -1,4 +1,7 @@
 import { createRouter, createWebHistory,createWebHashHistory } from 'vue-router'
+import {getAuth} from "../config/utils";
+import {ElMessageBox, ElMessage} from 'element-plus'
+
 const modulesFiles = require.context('@/view', true, /router.js$/);
 let childrenRouters = [];
 modulesFiles.keys().forEach((key)=>{
@@ -28,13 +31,26 @@ const Router = createRouter({
     { path: "/:catchAll(.*)", redirect: '/404' }
   ],
 })
-Router.beforeEach((to, from) => {
 
-  return true
+Router.beforeEach((to, from) => {
+  let result = true
+  const auth = getAuth()
+  if(auth){
+    const toPath = to.path
+    const menuList = auth.menuList
+    result = menuList.map(m=>m.router).includes(toPath)
+    if(!result){
+      ElMessage({
+        type:'error',
+        message:'无权限访问！'
+      })
+    }
+  }
+  return result
 })
 
 //页面刷新时调用
 Router.isReady().then(res => {
-
+  console.log('页面刷新')
 })
 export default Router

@@ -68,13 +68,13 @@ const data = reactive({
   total: 0,
   loading: true,
   typeList: [
-    {label: '添加', value: '1'},
-    {label: '编辑', value: '2'},
-    {label: '删除', value: '3'},
-    {label: '查询', value: '4'},
-    {label: '导入', value: '5'},
-    {label: '导出', value: '6'},
-    {label: '审核', value: '7'},
+    {label: '查询', value: 'query'},
+    {label: '添加', value: 'add'},
+    {label: '编辑', value: 'edit'},
+    {label: '删除', value: 'delete'},
+    {label: '导入', value: 'import'},
+    {label: '导出', value: 'export'},
+    {label: '审核', value: 'examine'},
   ],
   checkedInfo: {}
 })
@@ -82,7 +82,7 @@ const data = reactive({
 /** 全选、取消全选 **/
 const handlerCheckAll = (checked, row) => {
   if (checked) {
-    row.checkedList = ['1', '2', '3', '4', '5', '6', '7']
+    row.checkedList = ['query', 'add', 'edit', 'delete', 'import', 'export', 'examine']
     data.checkedInfo[row.id] = row.checkedList
   } else {
     row.checkedList = []

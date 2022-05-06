@@ -34,13 +34,13 @@
 import {defineComponent} from 'vue'
 import {logOut} from "@/view/login/api";
 import router from "@/router";
-import {getLoginInfo, removeLoginInfo} from '@/config/utils'
+import {getUser, removeLoginInfo} from '@/config/utils'
 import {ElMessageBox} from 'element-plus'
 
 export default defineComponent({
   name: 'rHeader',
   setup(props, content) {
-    const user = getLoginInfo()
+    const user = getUser()
     const handlerLogOut = () => {
       ElMessageBox.confirm(`确认退出？`,
           {

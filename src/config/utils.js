@@ -163,32 +163,31 @@ export function isObject(obj){
 }
 
 /**
-  * @desc 设置登录信息
-  * @params:
-  *   name(类型): 描述
-  * @auth Roffer
-  * 2022/4/19 13:30
-  *
-  */
-export function setLoginInfo(token,user={}){
-  localStorage.setItem('token',token)
-  localStorage.setItem('user',JSON.stringify(user))
-}
-
-/**
  * @desc 获取登录信息
- * @params:
- *   name(类型): 描述
  * @auth Roffer
  * 2022/4/19 13:30
  *
  */
-export function getLoginInfo(){
+export function getUser(){
   let user = localStorage.getItem('user')
   if(!user){
     router.replace('/login')
   }else
     return JSON.parse(user)
+}
+
+/**
+ * @desc 获取登录用户权限
+ * @auth Roffer
+ * 2022/4/19 13:30
+ *
+ */
+export function getAuth(){
+  let auth = localStorage.getItem('auth')
+  if(!auth){
+    router.replace('/login')
+  }else
+    return JSON.parse(auth)
 }
 
 /**
@@ -202,4 +201,5 @@ export function getLoginInfo(){
 export function removeLoginInfo(){
   localStorage.removeItem('token')
   localStorage.removeItem('user')
+  localStorage.removeItem('auth')
 }

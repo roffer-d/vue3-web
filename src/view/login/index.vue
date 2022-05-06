@@ -22,9 +22,8 @@
   </div>
 </template>
 <script>
-import {ref, reactive, toRefs, defineComponent} from 'vue'
-import {login} from './api'
-import {ElMessage} from 'element-plus'
+import {defineComponent, reactive, ref, toRefs} from 'vue'
+import {getAuth, login} from './api'
 import router from '@/router'
 import md5 from 'js-md5'
 
@@ -61,20 +60,26 @@ export default defineComponent({
     }
 
     //登录
-    const handlerLogin = () => {
+    const handlerLogin = async () => {
       checkAccount()
       checkPassword()
 
       if(data.form.account !== '' && data.form.password !== ''){
         let form = JSON.parse(JSON.stringify(data.form))
         form.password = md5(form.password)
-        login(form).then(res=>{
-          if(res.code == 200){
-            localStorage.setItem("token",`Bearer ${res.data.token}`)
-            localStorage.setItem("user",JSON.stringify(res.data.user))
-            router.replace('/basicUser')
+        const res = await login(form)
+        if(res.code == 200){
+          localStorage.setItem("token",`Bearer ${res.data.token}`)
+          localStorage.setItem("user",JSON.stringify(res.data.user))
+
+          /** 获取用户权限 **/
+          const response = await getAuth({userId:res.data.user.id})
+          if(response.code == 200){
+            localStorage.setItem("auth",JSON.stringify(response.data))
           }
-        })
+
+          router.replace('/basicUser')
+        }
       }
     }
 

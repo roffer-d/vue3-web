@@ -16,32 +16,26 @@
         </el-icon>
         <span>系统管理</span>
       </template>
-      <el-menu-item index="/basicUser">
-        <i class="iconfont icon-user"></i>
-        <span>用户管理</span>
-      </el-menu-item>
-      <el-menu-item index="/basicRole">
-        <i class="iconfont icon-role"></i>
-        <span>角色管理</span>
-      </el-menu-item>
-      <el-menu-item index="/basicMenu">
-        <i class="iconfont icon-menu"></i>
-        <span>菜单管理</span>
+      <el-menu-item :index="item.router" v-for="(item,index) in menuList" :key="index">
+        <i :class="['iconfont',item.icon]"></i>
+        <span>{{item.name}}</span>
       </el-menu-item>
     </el-sub-menu>
   </el-menu>
 </template>
 
 <script>
-import {reactive,toRefs} from 'vue'
+import {reactive, toRefs} from 'vue'
 import {useRoute} from 'vue-router'
+import {getAuth} from '@/config/utils'
 
 export default {
   name: "r-menu",
-  setup(){
+  setup() {
     const route = useRoute()
     const data = reactive({
       defaultActive: route.path,
+      menuList: getAuth().menuList
     })
 
     return {
@@ -56,7 +50,7 @@ export default {
   height: 100vh;
   //background: #545c64;
 
-  .iconfont{
+  .iconfont {
     margin-right: 5px;
   }
 }

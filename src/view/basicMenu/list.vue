@@ -55,6 +55,9 @@ import {reactive,computed,onMounted} from 'vue'
 import * as basicMenuApi from './api'
 import {ElMessageBox, ElMessage} from 'element-plus'
 import edit from './components/edit'
+import {setAuth} from "../../config/utils";
+import {inject} from 'vue'
+const reload = inject('reload')
 
 const data = reactive({
     pageSizeOption:[10,20,50,100],
@@ -137,9 +140,11 @@ const handlerEdit = (basicMenu) => {
 }
 
 /** 添加成功回调 **/
-const addSuccess = () => {
+const addSuccess = async () => {
     data.modelVisible = false
-    reset()
+    /** 重新获取用户权限 **/
+    await setAuth()
+    reload()
 }
 
 /** 弹窗关闭之后 **/

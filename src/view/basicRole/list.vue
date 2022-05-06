@@ -58,6 +58,9 @@ import * as basicRoleApi from './api'
 import {ElMessageBox, ElMessage} from 'element-plus'
 import edit from './components/edit'
 import roleAuth from './components/roleAuth'
+import {setAuth} from "../../config/utils";
+import {inject} from 'vue'
+const reload = inject('reload')
 
 const data = reactive({
   pageSizeOption: [10, 20, 50, 100],
@@ -133,12 +136,16 @@ const handlerAuth = (basicRole) => {
 }
 
 /** 保存菜单权限成功 **/
-const handlerAuthSuccess = () =>{
+const handlerAuthSuccess = async () =>{
   ElMessage({
     type: 'success',
     message: `菜单权限配置成功!`
   })
   data.authVisible = false
+
+  /** 重新获取用户权限 **/
+  await setAuth()
+  reload()
 }
 
 /** 取消菜单权限 **/
@@ -160,9 +167,11 @@ const handlerEdit = (basicRole) => {
 }
 
 /** 添加成功回调 **/
-const addSuccess = () => {
+const addSuccess = async () => {
   data.modelVisible = false
-  reset()
+  /** 重新获取用户权限 **/
+  await setAuth()
+  reload()
 }
 
 /** 新增、编辑弹窗关闭之后 **/

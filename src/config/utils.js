@@ -1,4 +1,5 @@
 import router from "@/router";
+import {getAuth as getAuthApi} from '../view/basicMenu/api'
 
 /**
  * @description 日期格式化
@@ -188,6 +189,15 @@ export function getAuth(){
     router.replace('/login')
   }else
     return JSON.parse(auth)
+}
+
+export async function setAuth(){
+  const user = getUser()
+  /** 获取用户权限 **/
+  const response = await getAuthApi({userId:user.id})
+  if(response.code == 200){
+    localStorage.setItem("auth",JSON.stringify(response.data))
+  }
 }
 
 /**

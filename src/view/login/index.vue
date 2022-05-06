@@ -23,7 +23,8 @@
 </template>
 <script>
 import {defineComponent, reactive, ref, toRefs} from 'vue'
-import {getAuth, login} from './api'
+import {login} from './api'
+import {setAuth} from "../../config/utils";
 import router from '@/router'
 import md5 from 'js-md5'
 
@@ -70,11 +71,8 @@ export default defineComponent({
           localStorage.setItem("token",`Bearer ${res.data.token}`)
           localStorage.setItem("user",JSON.stringify(res.data.user))
 
-          /** 获取用户权限 **/
-          const response = await getAuth({userId:res.data.user.id})
-          if(response.code == 200){
-            localStorage.setItem("auth",JSON.stringify(response.data))
-          }
+          /** 设置用户权限 **/
+          await setAuth()
 
           router.replace('/basicUser')
         }

@@ -6,6 +6,7 @@ const api = {
     update:'/basicMenu/update',//更新菜单
     del:'/basicMenu/delete',//删除菜单
     getById:'/basicMenu/getById',//根据id获取菜单信息
+    getAuth:'/basicMenu/getAuth',//获取用户权限
 }
 
 /**
@@ -78,4 +79,16 @@ export function save(params={}){
  */
 export function getById(params={}){
     return form(api.getById,params)
+}
+
+/**
+ * @desc 获取用户权限
+ * @params:
+ *   params(Object): 参数
+ * @auth Roffer
+ * @date 2022/5/5 16:20
+ *
+ */
+export function getAuth(params={}){
+    return form(api.getAuth,params)
 }

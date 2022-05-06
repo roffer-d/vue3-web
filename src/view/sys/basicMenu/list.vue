@@ -55,7 +55,7 @@ import {reactive,computed,onMounted} from 'vue'
 import * as basicMenuApi from './api'
 import {ElMessageBox, ElMessage} from 'element-plus'
 import edit from './components/edit'
-import {setAuth} from "../../config/utils";
+import {setAuth} from "@/config/utils";
 import {inject} from 'vue'
 const reload = inject('reload')
 

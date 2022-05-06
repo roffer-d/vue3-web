@@ -24,7 +24,7 @@
 <script>
 import {defineComponent, reactive, ref, toRefs} from 'vue'
 import {login} from './api'
-import {setAuth} from "../../config/utils";
+import {setAuth} from "@/config/utils";
 import router from '@/router'
 import md5 from 'js-md5'
 

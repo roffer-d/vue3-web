@@ -1,5 +1,5 @@
 import router from "@/router";
-import {getAuth as getAuthApi} from '../view/basicMenu/api'
+import {getAuth as getAuthApi} from '@/view/sys/basicMenu/api'
 
 /**
  * @description 日期格式化

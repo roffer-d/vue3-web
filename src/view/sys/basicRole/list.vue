@@ -58,7 +58,7 @@ import * as basicRoleApi from './api'
 import {ElMessageBox, ElMessage} from 'element-plus'
 import edit from './components/edit'
 import roleAuth from './components/roleAuth'
-import {setAuth} from "../../config/utils";
+import {setAuth} from "@/config/utils";
 import {inject} from 'vue'
 const reload = inject('reload')
 

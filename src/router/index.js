@@ -13,7 +13,7 @@ const Router = createRouter({
     {
       path: '/',
       name: 'home',
-      redirect: '/sys/basicUser',
+      // redirect: '/sys/basicUser',
       component: () => import('@/view/home'),
       meta: {
         title: "系统管理"
@@ -33,7 +33,7 @@ const Router = createRouter({
 })
 
 Router.beforeEach((to, from) => {
-  const filterPath = ['/login','/404']
+  const filterPath = ['/','/login','/404']
   if(filterPath.includes(to.path)){
     return true
   }

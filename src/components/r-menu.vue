@@ -16,7 +16,7 @@
         </el-icon>
         <span>系统管理</span>
       </template>
-      <el-menu-item :index="item.router" v-for="(item,index) in menuList" :key="index">
+      <el-menu-item :index="item.route" v-for="(item,index) in menuList" :key="index">
         <i :class="['iconfont',item.icon]"></i>
         <span>{{item.name}}</span>
       </el-menu-item>

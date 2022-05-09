@@ -13,7 +13,7 @@ const Router = createRouter({
     {
       path: '/',
       name: 'home',
-      redirect: 'basicUser',
+      redirect: '/sys/basicUser',
       component: () => import('@/view/home'),
       meta: {
         title: "系统管理"
@@ -43,7 +43,7 @@ Router.beforeEach((to, from) => {
   if(auth){
     const toPath = to.path
     const menuList = auth.menuList
-    result = menuList.map(m=>m.router).includes(toPath)
+    result = menuList.map(m=>m.route).includes(toPath)
     if(!result){
       ElMessage({
         type:'error',

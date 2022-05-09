@@ -16,7 +16,7 @@
                 <el-table-column prop="type" label="分类" />
                 <el-table-column prop="remark" label="描述" />
                 <el-table-column prop="createTime" label="创建时间" />
-                <el-table-column prop="updateTime" label="更新时间" />
+<!--                <el-table-column prop="updateTime" label="更新时间" />-->
                 <el-table-column label="操作" width="200" >
                     <template #default="{row}">
                         <el-tag class="mr-10" @click="handlerEdit(row)" type="danger" >编辑</el-tag>

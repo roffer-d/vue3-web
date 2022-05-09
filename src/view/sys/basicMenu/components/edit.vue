@@ -14,11 +14,8 @@
       <el-form-item label="名称" prop="name">
         <el-input v-model="data.form.name" placeholder="名称"/>
       </el-form-item>
-      <el-form-item label="路由" prop="router">
-        <el-input v-model="data.form.router" placeholder="路由"/>
-      </el-form-item>
-      <el-form-item label="权限标识" prop="authCode">
-        <el-input v-model="data.form.authCode" placeholder="权限标识"/>
+      <el-form-item label="路由" prop="route">
+        <el-input v-model="data.form.route" placeholder="路由"/>
       </el-form-item>
       <el-form-item label="图标" prop="icon">
         <el-input v-model="data.form.icon" placeholder="图标"/>
@@ -37,14 +34,14 @@
   </div>
 </template>
 <script setup>
-import {ref, reactive, onMounted,defineProps,defineEmits} from 'vue'
+import {ref, reactive, onMounted,defineProps,defineEmits,nextTick} from 'vue'
 import * as basicMenuApi from '../api'
 import {ElMessage} from 'element-plus'
 
 const basicMenuFormRef = ref(null)
 const parentMenuRef = ref(null)
 
-const props = defineProps(['id'])
+const props = defineProps(['id','parentMenu'])
 const emit = defineEmits(['success']);
 const cascaderProps = reactive({
   // multiple: false,
@@ -62,8 +59,7 @@ const data = reactive({
     pids: '',//所有父级id
     pnames: '',//所有父级名称
     name: '',//名称
-    router: '',//路由
-    authCode: '',//权限标识
+    route: '',//路由
     icon: '',//图标
     sort: '',//排序
     remark: '',//菜单说明
@@ -75,11 +71,8 @@ const data = reactive({
     name: [
       {required: true, message: '名称不能为空'},
     ],
-    router: [
+    route: [
       {required: true, message: '路由不能为空'},
-    ],
-    authCode: [
-      {required: true, message: '权限标识不能为空'},
     ],
     // icon: [
     //     {required: true, message: '图标不能为空'},
@@ -93,6 +86,14 @@ const data = reactive({
   },
   menuList: []
 })
+
+/** 菜单下添加子菜单，初始化时赋值表单属性 **/
+if(props.parentMenu){
+  data.form.pid = props.parentMenu.id
+  data.form.pname = props.parentMenu.name
+  data.form.pids = `${props.parentMenu.pids},${props.parentMenu.id}`
+  data.form.pnames = `${props.parentMenu.pnames},${props.parentMenu.name}`
+}
 
 /** 获取信息 **/
 const getUser = () => {

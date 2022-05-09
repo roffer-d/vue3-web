@@ -8,9 +8,9 @@
         <el-option label="启用" value="1"></el-option>
         <el-option label="禁用" value="0"></el-option>
       </el-select>
-      <el-button class="mr-10" type="primary" @click="search">查询</el-button>
+      <el-button class="mr-10" type="primary" @click="search" v-auth="'query'">查询</el-button>
       <el-button class="mr-10" @click="reset">重设</el-button>
-      <el-button type="success" @click="handlerAdd" style="float: right">添加</el-button>
+      <el-button type="success" @click="handlerAdd" style="float: right" v-auth="'add'">添加</el-button>
     </div>
     <div class="data-list" v-loading="data.loading">
       <el-table :data="data.basicUserList" style="width: 100%">
@@ -30,8 +30,8 @@
             <template v-if="row.id != data.loginUser.id && row.id != '1516296092063412225'">
               <el-tag class="mr-10" @click="toggleStatus(row)" type="success" v-if="row.status == '0'">启用</el-tag>
               <el-tag class="mr-10" @click="toggleStatus(row)" type="danger" v-else-if="row.status == '1'">禁用</el-tag>
-              <el-tag class="mr-10" @click="handlerEdit(row)" type="success" >编辑</el-tag>
-              <el-tag class="mr-10" @click="handlerDelete(row)" type="danger" >删除</el-tag>
+              <el-tag class="mr-10" @click="handlerEdit(row)" type="success" v-auth="'edit'">编辑</el-tag>
+              <el-tag class="mr-10" @click="handlerDelete(row)" type="danger" v-auth="'delete'">删除</el-tag>
               <el-tag class="mr-10" @click="handlerSetRole(row)" type="success" >角色配置</el-tag>
             </template>
             <span v-else-if="row.id == data.loginUser.id" class="success-text">当前登录,不可操作</span>

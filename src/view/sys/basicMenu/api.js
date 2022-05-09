@@ -1,4 +1,4 @@
-import {form} from '@/config/request'
+import {post,form} from '@/config/request'
 const api = {
     list:'/basicMenu/listPage',//菜单列表
     menuTree:'/basicMenu/menuTree',//菜单树
@@ -7,6 +7,7 @@ const api = {
     del:'/basicMenu/delete',//删除菜单
     getById:'/basicMenu/getById',//根据id获取菜单信息
     getAuth:'/basicMenu/getAuth',//获取用户权限
+    menuAuth:'/basicMenu/menuAuth',//菜单权限配置
 }
 
 /**
@@ -91,4 +92,16 @@ export function getById(params={}){
  */
 export function getAuth(params={}){
     return form(api.getAuth,params)
+}
+
+/**
+  * @desc 菜单权限配置
+  * @params:
+  *   params(Object): 参数
+  * @auth Roffer
+  * @date 2022/5/7 16:06
+  *
+  */
+export function menuAuth(params={}){
+    return post(api.menuAuth,params)
 }

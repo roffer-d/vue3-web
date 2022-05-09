@@ -11,7 +11,7 @@
       <el-table-column prop="name" label="菜单名称"/>
       <el-table-column label="权限" width="580">
         <template #default="{row}">
-          <div style="display: flex">
+          <div style="display: flex" v-if="row.auth.length">
             <el-checkbox
                 v-model="row.checkAll"
                 size="small" label="all"
@@ -19,12 +19,13 @@
                 @change="(val)=>handlerCheckAll(val,row)">全选
             </el-checkbox>
             <el-checkbox-group size="small" v-model="row.checkedList" @change="(val)=>handlerAuthChange(val,row)">
-              <el-checkbox :key="index" v-for="(item,index) in data.typeList" :label="item.code">{{
+              <el-checkbox :key="index" v-for="(item,index) in row.authList" :label="item.code">{{
                   item.name
                 }}
               </el-checkbox>
             </el-checkbox-group>
           </div>
+          <span v-else class="danger-text">暂无权限，请在菜单管理中配置</span>
         </template>
       </el-table-column>
     </el-table>
@@ -51,7 +52,6 @@
 import {reactive, onBeforeMount, computed, defineProps, defineEmits} from 'vue'
 import {getRoleAuth as getRoleAuthApi, saveRoleAuth as saveRoleAuthApi} from '../api'
 import * as basicMenuApi from "../../basicMenu/api";
-import {getDict} from "../../basicDict/api";
 
 const props = defineProps({
   role: {}
@@ -68,26 +68,23 @@ const data = reactive({
   },
   total: 0,
   loading: true,
-  typeList: [],
   checkedInfo: {}
 })
 
 /** 全选、取消全选 **/
 const handlerCheckAll = (checked, row) => {
-  let key = `${row.id}_${row.authCode}`
   if (checked) {
-    row.checkedList = data.typeList.map(t => t.code)
-    data.checkedInfo[key] = row.checkedList
+    row.checkedList = row.authList.map(t => t.code)
+    data.checkedInfo[row.id] = row.checkedList
   } else {
     row.checkedList = []
-    delete data.checkedInfo[key]
+    delete data.checkedInfo[row.id]
   }
 }
 
 /** 权限勾选、取消勾选 **/
 const handlerAuthChange = (val, row) => {
-  let key = `${row.id}_${row.authCode}`
-  data.checkedInfo[key] = val
+  data.checkedInfo[row.id] = val
 }
 
 /** 是否隐藏分页组件，当数据总条数小于每页显示的数据条数时隐藏 **/
@@ -100,10 +97,9 @@ const checkedAuth = (dataList) => {
   dataList = dataList || data.basicMenuList
 
   dataList.forEach(item => {
-    let key = `${item.id}_${item.authCode}`
-    if (data.checkedInfo[key]) {
-      item.checkedList = data.checkedInfo[key]
-      item.checkAll = data.checkedInfo[key].length == 7//判断是否全选
+    if (data.checkedInfo[item.id]) {
+      item.checkedList = data.checkedInfo[item.id]
+      item.checkAll = data.checkedInfo[item.id].length == item.authList.length//判断是否全选
     }
 
     /** 递归匹配选中 **/
@@ -113,18 +109,14 @@ const checkedAuth = (dataList) => {
   })
 }
 
-/** 获取所有操作数据的权限 **/
-const getTypeList = async () => {
-  const res = await getDict({type: 'auth'})
-  if (res.code == 200) {
-    data.typeList = res.data.list
-  }
-}
-
 /** 查询、搜索菜单 **/
 const getMenuList = () => {
   basicMenuApi.query(data.searchData).then(res => {
     if (res.code == 200) {
+      res.data.list.forEach(item=>{
+        item.authList = item.auth ? JSON.parse(item.auth) : []
+      })
+
       data.total = res.data.total
       data.basicMenuList = res.data.list
       checkedAuth()
@@ -157,8 +149,7 @@ const getRoleAuth = async () => {
   const res = await getRoleAuthApi({roleId: props.role.id})
   if (res.code == 200) {
     res.data.list.forEach(item => {
-      let key = `${item.menuId}_${item.authCode}`
-      data.checkedInfo[key] = item.authorityType.split(',')
+      data.checkedInfo[item.menuId] = item.authorityType.split(',')
     })
   }
 }
@@ -170,10 +161,8 @@ const saveRoleAuth = () => {
     auth: []
   }
   for (let key in data.checkedInfo) {
-    let array = key.split('_')
     params.auth.push({
-      menuId: array[0],
-      authCode: array[1],
+      menuId: key,
       authorityType: data.checkedInfo[key].join(',')
     })
   }
@@ -190,7 +179,7 @@ const cancelSave = () => {
 }
 
 onBeforeMount(() => {
-  getTypeList()
+  // getTypeList()
   getRoleAuth()
   getMenuList()
 })

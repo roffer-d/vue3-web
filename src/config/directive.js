@@ -1,9 +1,11 @@
+import {getAuth} from "./utils";
+
 /** 移动端长按指令 **/
 const directiveList = [
   {
     name: 'longpress',
     directive: {
-      inserted (el, bind) {
+      mounted (el, bind) {
         let timeOutEvent = 0;
 
         el.addEventListener('touchstart', (e) => {
@@ -33,9 +35,30 @@ const directiveList = [
   {
     name: 'focus',
     directive: {
-      inserted: function (el) {
+      mounted: function (el) {
         // 聚焦元素
         el.focus()
+      }
+    }
+  },
+  {
+    /** 按钮权限指令 **/
+    name: 'auth',
+    directive: {
+      beforeMount(el,bind,vnode){
+
+      },
+      mounted(el,bind,vnode) {
+        const {roleMenuList} = getAuth()
+        const route = (location.hash||location.pathname).replace(/^\#/,'')
+        roleMenuList.forEach(rm=>{
+          if(rm.route == route){
+            if(rm.auth.indexOf(bind.value) == -1){
+              /** 没有该按钮权限,删除该按钮 **/
+              el.parentNode.removeChild(el)
+            }
+          }
+        })
       }
     }
   }

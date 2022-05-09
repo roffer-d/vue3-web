@@ -46,4 +46,9 @@ export default defineComponent({
     background: #f7f7f7;
     min-width: 880px;
   }
+
+  .el-aside{
+    width: auto !important;
+    max-width: 220px;
+  }
 </style>

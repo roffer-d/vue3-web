@@ -11,23 +11,12 @@
         @open="handleOpen"
         @close="handleClose"
     >
-      <el-sub-menu index="/home">
+      <el-sub-menu index="/">
         <template #title>
-          <el-icon>
-            <platform/>
-          </el-icon>
+          <el-icon><platform/></el-icon>
           <span>系统管理</span>
         </template>
-        <el-menu-item :index="item.route" v-for="(item,index) in menuList" :key="index">
-          <i :class="['iconfont',item.icon]"></i>
-          <span>{{ item.name }}</span>
-          <el-sub-menu index="/home">
-            <el-menu-item :index="child.route" v-for="(child,idx) in item.children" :key="idx">
-              <i :class="['iconfont',child.icon]"></i>
-              <span>{{ child.name }}</span>
-            </el-menu-item>
-          </el-sub-menu>
-        </el-menu-item>
+        <r-sub-menu :data="menuList" />
       </el-sub-menu>
     </el-menu>
     <div class="collapse" @click="toggleCollapse" :style="{width:arrowVisible?'20px':0}">
@@ -41,6 +30,7 @@
 import {reactive, toRefs} from 'vue'
 import {useRoute} from 'vue-router'
 import {getAuth} from '@/config/utils'
+import rSubMenu from './r-sub-menu'
 
 export default {
   name: "r-menu",

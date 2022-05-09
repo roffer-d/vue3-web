@@ -11,7 +11,7 @@
       <el-table-column prop="name" label="菜单名称"/>
       <el-table-column label="权限" width="580">
         <template #default="{row}">
-          <div style="display: flex" v-if="row.auth.length">
+          <div style="display: flex" v-if="row.auth">
             <el-checkbox
                 v-model="row.checkAll"
                 size="small" label="all"
@@ -97,6 +97,8 @@ const checkedAuth = (dataList) => {
   dataList = dataList || data.basicMenuList
 
   dataList.forEach(item => {
+    item.authList = item.auth ? JSON.parse(item.auth) : []
+
     if (data.checkedInfo[item.id]) {
       item.checkedList = data.checkedInfo[item.id]
       item.checkAll = data.checkedInfo[item.id].length == item.authList.length//判断是否全选
@@ -113,10 +115,6 @@ const checkedAuth = (dataList) => {
 const getMenuList = () => {
   basicMenuApi.query(data.searchData).then(res => {
     if (res.code == 200) {
-      res.data.list.forEach(item=>{
-        item.authList = item.auth ? JSON.parse(item.auth) : []
-      })
-
       data.total = res.data.total
       data.basicMenuList = res.data.list
       checkedAuth()

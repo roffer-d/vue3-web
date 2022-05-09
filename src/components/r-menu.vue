@@ -21,6 +21,12 @@
         <el-menu-item :index="item.route" v-for="(item,index) in menuList" :key="index">
           <i :class="['iconfont',item.icon]"></i>
           <span>{{ item.name }}</span>
+          <el-sub-menu index="/home">
+            <el-menu-item :index="child.route" v-for="(child,idx) in item.children" :key="idx">
+              <i :class="['iconfont',child.icon]"></i>
+              <span>{{ child.name }}</span>
+            </el-menu-item>
+          </el-sub-menu>
         </el-menu-item>
       </el-sub-menu>
     </el-menu>

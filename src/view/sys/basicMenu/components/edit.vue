@@ -17,8 +17,9 @@
       <el-form-item label="路由" prop="route">
         <el-input v-model="data.form.route" placeholder="路由"/>
       </el-form-item>
-      <el-form-item label="图标" prop="icon">
-        <el-input v-model="data.form.icon" placeholder="图标"/>
+      <el-form-item label="图标">
+        <i :class="['iconfont',data.form.icon]" v-if="data.form.icon" style="margin-right: 8px"></i>
+        <el-button size="small" type="warning" @click="data.iconVisible=true">选择</el-button>
       </el-form-item>
       <el-form-item label="排序" prop="sort">
         <el-input v-model="data.form.sort" placeholder="排序"/>
@@ -31,24 +32,32 @@
         <el-button @click="resetForm(basicMenuFormRef)">重设</el-button>
       </el-form-item>
     </el-form>
+
+    <el-dialog v-model="data.iconVisible" title="选择图标" width="30%"
+               :close-on-click-modal="false"
+               :close-on-press-escape="false"
+    >
+      <r-icon v-model="data.form.icon" @success="handlerIconSuccess"/>
+    </el-dialog>
   </div>
 </template>
 <script setup>
-import {ref, reactive, onMounted,defineProps,defineEmits,nextTick} from 'vue'
+import {ref, reactive, onMounted, defineProps, defineEmits, nextTick} from 'vue'
 import * as basicMenuApi from '../api'
 import {ElMessage} from 'element-plus'
+import rIcon from '@/components/r-icon'
 
 const basicMenuFormRef = ref(null)
 const parentMenuRef = ref(null)
 
-const props = defineProps(['id','parentMenu'])
+const props = defineProps(['id', 'parentMenu'])
 const emit = defineEmits(['success']);
 const cascaderProps = reactive({
   // multiple: false,
-  emitPath:false,
-  value:'id',
-  label:'name',
-  checkStrictly:true
+  emitPath: false,
+  value: 'id',
+  label: 'name',
+  checkStrictly: true
 })
 
 const data = reactive({
@@ -84,15 +93,21 @@ const data = reactive({
     //     {required: true, message: '菜单说明不能为空'},
     // ],
   },
-  menuList: []
+  menuList: [],
+  iconVisible:false,
 })
 
 /** 菜单下添加子菜单，初始化时赋值表单属性 **/
-if(props.parentMenu){
+if (props.parentMenu) {
   data.form.pid = props.parentMenu.id
   data.form.pname = props.parentMenu.name
   data.form.pids = `${props.parentMenu.pids},${props.parentMenu.id}`
   data.form.pnames = `${props.parentMenu.pnames},${props.parentMenu.name}`
+}
+
+/** 选择完图标 **/
+const handlerIconSuccess = ()=>{
+  data.iconVisible = false
 }
 
 /** 获取信息 **/
@@ -128,7 +143,7 @@ const getMenuList = () => {
 }
 
 /** 父级菜单值改变触发 **/
-const parentMenuChange = ()=>{
+const parentMenuChange = () => {
   const checkedNode = parentMenuRef.value.getCheckedNodes()[0]
   const pathValues = checkedNode.pathValues.join('/')
   const pathLabels = checkedNode.pathLabels.join('/')

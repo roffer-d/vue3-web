@@ -3,7 +3,7 @@
         <div class="search-box">
             <el-input v-model="data.searchData.remark" placeholder="操作描述" style="width: 200px;" class="mr-20" />
             <el-input v-model="data.searchData.userName" placeholder="操作用户" style="width: 200px;" class="mr-20" />
-            <el-button class="mr-10" type="primary" @click="search">查询</el-button>
+            <el-button class="mr-10" type="primary" @click="search" v-auth="'query'">查询</el-button>
             <el-button class="mr-10" @click="reset">重设</el-button>
         </div>
         <div class="data-list" v-loading="data.loading">

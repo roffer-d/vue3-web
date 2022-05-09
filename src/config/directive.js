@@ -53,7 +53,8 @@ const directiveList = [
         const route = (location.hash||location.pathname).replace(/^\#/,'')
         roleMenuList.forEach(rm=>{
           if(rm.route == route){
-            if(rm.auth.indexOf(bind.value) == -1){
+            let authList = rm.auth.split(',')
+            if(!authList.includes(bind.value)){
               /** 没有该按钮权限,删除该按钮 **/
               el.parentNode.removeChild(el)
             }

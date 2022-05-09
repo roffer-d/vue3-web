@@ -28,11 +28,11 @@
         <el-table-column label="操作" width="280">
           <template #default="{row}">
             <template v-if="row.id != data.loginUser.id && row.id != '1516296092063412225'">
-              <el-tag class="mr-10" @click="toggleStatus(row)" type="success" v-if="row.status == '0'">启用</el-tag>
-              <el-tag class="mr-10" @click="toggleStatus(row)" type="danger" v-else-if="row.status == '1'">禁用</el-tag>
+              <el-tag class="mr-10" @click="toggleStatus(row)" type="success" v-if="row.status == '0'" v-auth="'enable'">启用</el-tag>
+              <el-tag class="mr-10" @click="toggleStatus(row)" type="danger" v-else-if="row.status == '1'" v-auth="'disable'">禁用</el-tag>
               <el-tag class="mr-10" @click="handlerEdit(row)" type="success" v-auth="'edit'">编辑</el-tag>
               <el-tag class="mr-10" @click="handlerDelete(row)" type="danger" v-auth="'delete'">删除</el-tag>
-              <el-tag class="mr-10" @click="handlerSetRole(row)" type="success" >角色配置</el-tag>
+              <el-tag class="mr-10" @click="handlerSetRole(row)" type="success" v-auth="'role_config'">角色配置</el-tag>
             </template>
             <span v-else-if="row.id == data.loginUser.id" class="success-text">当前登录,不可操作</span>
             <span v-else-if="row.id == '1516296092063412225'" class="success-text">不可操作超级管理员</span>
@@ -77,6 +77,8 @@ import {computed, onMounted, reactive} from 'vue'
 import * as basicUserApi from './api'
 import {ElMessage, ElMessageBox} from 'element-plus'
 import {getUser} from "@/config/utils";
+import edit from './components/edit'
+import userRole from './components/userRole'
 
 const data = reactive({
   pageSizeOption: [10, 20, 50, 100],

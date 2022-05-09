@@ -3,9 +3,9 @@
     <div class="search-box">
       <el-input v-model="data.searchData.name" placeholder="名称" style="width: 200px;" class="mr-20"/>
       <el-input v-model="data.searchData.route" placeholder="路由" style="width: 200px;" class="mr-20"/>
-      <el-button class="mr-10" type="primary" @click="search">查询</el-button>
+      <el-button class="mr-10" type="primary" @click="search" v-auth="'query'">查询</el-button>
       <el-button class="mr-10" @click="reset">重设</el-button>
-      <el-button type="success" @click="handlerAdd" style="float: right">添加</el-button>
+      <el-button type="success" @click="handlerAdd" style="float: right" v-auth="'add'">添加</el-button>
     </div>
     <div class="data-list" v-loading="data.loading">
       <el-table :data="data.basicMenuList" style="width: 100%" row-key="id">
@@ -19,10 +19,10 @@
         <!--                <el-table-column prop="updateTime" label="更新时间" />-->
         <el-table-column label="操作" width="280">
           <template #default="{row}">
-            <el-tag class="mr-10" @click="handlerEdit(row)" type="danger">编辑</el-tag>
-            <el-tag class="mr-10" @click="handlerDelete(row)" type="danger">删除</el-tag>
-            <el-tag class="mr-10" @click="handlerSubAdd(row)" type="danger">添加</el-tag>
-            <el-tag class="mr-10" @click="handlerAuthAdd(row)" type="danger">权限配置</el-tag>
+            <el-tag class="mr-10" @click="handlerEdit(row)" type="danger" v-auth="'edit'">编辑</el-tag>
+            <el-tag class="mr-10" @click="handlerDelete(row)" type="danger" v-auth="'delete'">删除</el-tag>
+            <el-tag class="mr-10" @click="handlerSubAdd(row)" type="danger" v-auth="'add'">添加</el-tag>
+            <el-tag class="mr-10" @click="handlerAuthAdd(row)" type="danger" v-auth="'auth_config'">权限配置</el-tag>
           </template>
         </el-table-column>
       </el-table>

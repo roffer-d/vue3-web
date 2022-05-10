@@ -1,15 +1,11 @@
 <template>
   <template v-for="(item,index) in data">
-    <el-sub-menu index="" v-if="item.children.length" v-for="(child,idx) in item.children" :key="idx">
+    <el-sub-menu index="" v-if="item.children.length" :key="index">
       <template #title>
         <i :class="['iconfont',item.icon]"></i>
         <span>{{ item.name }}</span>
       </template>
-      <el-menu-item :index="child.route">
-        <i :class="['iconfont',child.icon]"></i>
-        <span>{{ child.name }}</span>
-      </el-menu-item>
-      <r-sub-menu v-if="child.children.length" :data="child.children"/>
+      <r-sub-menu v-if="item.children.length" :data="item.children"/>
     </el-sub-menu>
     <el-menu-item v-else :index="item.route">
       <i :class="['iconfont',item.icon]"></i>

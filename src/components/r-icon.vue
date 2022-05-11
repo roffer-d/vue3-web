@@ -29,7 +29,9 @@ const data = reactive({
     'icon-user',
     'icon-menu',
     'icon-password',
-    'icon-account'
+    'icon-account',
+    'icon-refresh',
+    'icon-close',
   ]
 })
 

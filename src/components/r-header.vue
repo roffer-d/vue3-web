@@ -12,12 +12,12 @@
           <span>{{ user.name }}</span>
         </div>
         <el-dropdown-menu>
-          <el-dropdown-item command="info">
-            <el-icon>
-              <Avatar/>
-            </el-icon>
-            个人信息
-          </el-dropdown-item>
+<!--          <el-dropdown-item command="info">-->
+<!--            <el-icon>-->
+<!--              <Avatar/>-->
+<!--            </el-icon>-->
+<!--            个人信息-->
+<!--          </el-dropdown-item>-->
           <el-dropdown-item command="logout">
             <el-icon>
               <Back/>

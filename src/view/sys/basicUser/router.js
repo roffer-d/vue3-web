@@ -4,7 +4,8 @@ export default [
         name: 'basicUser',
         component: () => import('@/view/sys/basicUser/list'),
         meta: {
-            title: "用户管理"
+            title: "用户管理",
+            code: 'user'
         },
     }
 ]

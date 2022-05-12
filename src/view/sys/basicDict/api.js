@@ -17,6 +17,7 @@ const api = {
  *
  */
 export function query(params={}){
+    params.auth = 'query'
     return form(api.list,params)
 }
 
@@ -29,6 +30,7 @@ export function query(params={}){
  *
  */
 export function update(params={}){
+    params.auth = 'edit'
     return form(api.update,params)
 }
 
@@ -41,6 +43,7 @@ export function update(params={}){
  *
  */
 export function del(params={}){
+    params.auth = 'delete'
     return form(api.del,params)
 }
 
@@ -53,6 +56,7 @@ export function del(params={}){
  *
  */
 export function save(params={}){
+    params.auth = 'add'
     return form(api.save,params)
 }
 
@@ -65,6 +69,7 @@ export function save(params={}){
  *
  */
 export function getById(params={}){
+    params.auth = 'query'
     return form(api.getById,params)
 }
 
@@ -77,5 +82,6 @@ export function getById(params={}){
   *
   */
 export function getDict(params={}){
+    params.auth = 'query'
     return form(api.getDict,params)
 }

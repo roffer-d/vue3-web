@@ -85,6 +85,7 @@ const handlerCheckAll = (checked, row) => {
 /** 权限勾选、取消勾选 **/
 const handlerAuthChange = (val, row) => {
   data.checkedInfo[row.id] = val
+  row.checkAll = data.checkedInfo[row.id].length == row.authList.length//判断是否全选
 }
 
 /** 是否隐藏分页组件，当数据总条数小于每页显示的数据条数时隐藏 **/
@@ -156,10 +157,10 @@ const getRoleAuth = async () => {
 const saveRoleAuth = () => {
   let params = {
     roleId: props.role.id,
-    auth: []
+    authList: []
   }
   for (let key in data.checkedInfo) {
-    params.auth.push({
+    params.authList.push({
       menuId: key,
       authorityType: data.checkedInfo[key].join(',')
     })

@@ -4,7 +4,8 @@ export default [
         name: 'basicRole',
         component: () => import('@/view/sys/basicRole/list'),
         meta: {
-            title: "角色管理"
+            title: "角色管理",
+            code: 'role'
         },
     }
 ]

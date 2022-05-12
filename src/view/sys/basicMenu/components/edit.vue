@@ -17,6 +17,9 @@
       <el-form-item label="路由" prop="route">
         <el-input v-model="data.form.route" placeholder="路由"/>
       </el-form-item>
+      <el-form-item label="权限标识" prop="code">
+        <el-input v-model="data.form.code" placeholder="权限标识"/>
+      </el-form-item>
       <el-form-item label="图标">
         <i :class="['iconfont',data.form.icon]" v-if="data.form.icon" style="margin-right: 8px"></i>
         <el-button size="small" type="warning" @click="data.iconVisible=true">选择</el-button>
@@ -69,6 +72,7 @@ const data = reactive({
     pnames: '',//所有父级名称
     name: '',//名称
     route: '',//路由
+    code: '',//权限标识
     icon: '',//图标
     sort: '',//排序
     remark: '',//菜单说明
@@ -82,6 +86,9 @@ const data = reactive({
     ],
     route: [
       {required: true, message: '路由不能为空'},
+    ],
+    code: [
+      {required: true, message: '权限标识不能为空'},
     ],
     // icon: [
     //     {required: true, message: '图标不能为空'},

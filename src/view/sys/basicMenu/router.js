@@ -4,7 +4,8 @@ export default [
         name: 'basicMenu',
         component: () => import('@/view/sys/basicMenu/list'),
         meta: {
-            title: "菜单管理"
+            title: "菜单管理",
+            code: 'menu'
         },
     }
 ]

@@ -40,10 +40,10 @@ Router.beforeEach((to, from) => {
 
   let result = true
   const auth = getAuth()
-  if(auth){
-    const toPath = to.path
+  const code = to.meta.code
+  if(auth && code){
     const menuList = auth.menuList
-    result = menuList.map(m=>m.route).includes(toPath)
+    result = menuList.map(m=>m.code).includes(code)
     if(!result){
       ElMessage({
         type:'error',

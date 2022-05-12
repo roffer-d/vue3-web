@@ -19,6 +19,7 @@ const api = {
   *
   */
 export function menuTree(params={}){
+    params.auth = 'query'
     return form(api.menuTree,params)
 }
 
@@ -31,6 +32,7 @@ export function menuTree(params={}){
  *
  */
 export function query(params={}){
+    params.auth = 'query'
     return form(api.list,params)
 }
 
@@ -43,6 +45,7 @@ export function query(params={}){
  *
  */
 export function update(params={}){
+    params.auth = 'edit'
     return form(api.update,params)
 }
 
@@ -55,6 +58,7 @@ export function update(params={}){
  *
  */
 export function del(params={}){
+    params.auth = 'delete'
     return form(api.del,params)
 }
 
@@ -67,6 +71,7 @@ export function del(params={}){
  *
  */
 export function save(params={}){
+    params.auth = 'add'
     return form(api.save,params)
 }
 
@@ -79,6 +84,7 @@ export function save(params={}){
  *
  */
 export function getById(params={}){
+    params.auth = 'query'
     return form(api.getById,params)
 }
 
@@ -91,6 +97,7 @@ export function getById(params={}){
  *
  */
 export function getAuth(params={}){
+    params.auth = 'query'
     return form(api.getAuth,params)
 }
 
@@ -103,5 +110,6 @@ export function getAuth(params={}){
   *
   */
 export function menuAuth(params={}){
+    params.auth = 'add'
     return post(api.menuAuth,params)
 }

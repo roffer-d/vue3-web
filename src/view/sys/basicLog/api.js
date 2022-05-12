@@ -12,5 +12,6 @@ const api = {
  *
  */
 export function query(params={}){
+    params.auth = 'query'
     return form(api.list,params)
 }

@@ -3,13 +3,10 @@
  */
 import axios from 'axios'
 import qs from 'qs'
-import {isObject,removeLoginInfo} from './utils'
-import { h } from 'vue'
-import {useRouter} from 'vue-router'
-import { ElMessage,ElNotification } from 'element-plus'
-
-const router = useRouter()
-
+import {isObject, removeLoginInfo} from './utils'
+import {h} from 'vue'
+import router from '@/router/index'
+import {ElMessage, ElNotification} from 'element-plus'
 
 // axios默认配置
 // axios.defaults.timeout = 30000;          // 超时时间
@@ -25,7 +22,7 @@ const router = useRouter()
 
 let axiosDefault = axios.create({
     timeout: 30000,
-    baseURL:'/basic',
+    baseURL: '/basic',
     withCredentials: false
 })
 
@@ -39,6 +36,8 @@ let axiosDefault = axios.create({
 const request = (url = '/', params = {}, options = {}) => {
     // 判断参数是否正常
     if (url && isObject(params) && isObject(options)) {
+        options.headers = options.headers || {}
+
         const methodType = {
             'get': 'params',
             'post': 'data',
@@ -66,25 +65,33 @@ const request = (url = '/', params = {}, options = {}) => {
         }
 
         options['url'] = url;
-        if(options['baseURL']){
+        if (options['baseURL']) {
             options['baseURL'] = options['baseURL']
         }
 
         const Authorization = localStorage.getItem('token');
-        //如果存在token,在请求头中添加token
+        /** 在请求头中添加token **/
         if (Authorization) {
-            options.headers = options.headers || {}
             options.headers.Authorization = localStorage.getItem('token');
         }
 
-        return new Promise((resolve,reject)=>{
-            axiosDefault(options).then(res=>{
+        const code = getMenuCode()
+        if (code) {
+            /** 在请求头添加当前请求路由路径、权限标识，后端做数据权限认证 **/
+            options.headers.code = code
+            options.headers.auth = params.auth
+
+            delete options[type].auth
+        }
+
+        return new Promise((resolve, reject) => {
+            axiosDefault(options).then(res => {
                 return resolve(res)
             }).catch((error) => {
                 // ElMessage.error('请求失败')
                 ElNotification({
                     title: '错误提示',
-                    message: h('i', { style: 'color: #ff6600' }, '请求失败'),
+                    message: h('i', {style: 'color: #ff6600'}, '请求失败'),
                 })
                 return resolve(error.response);
             })
@@ -104,38 +111,38 @@ const request = (url = '/', params = {}, options = {}) => {
     }
 }
 
-const form = (url,params,options={}) => {
+const form = (url, params, options = {}) => {
     options.method = 'post'
     options.headers = options.headers || {}
     options.headers["Content-Type"] = 'application/x-www-form-urlencoded'
-    return request(url,params,options)
+    return request(url, params, options)
 }
 
-const post = (url,params,options={}) => {
+const post = (url, params, options = {}) => {
     options.method = 'post'
-    return request(url,params,options)
+    return request(url, params, options)
 }
 
-const get = (url,params,options={}) => {
+const get = (url, params, options = {}) => {
     options.method = 'get'
-    return request(url,params,options)
+    return request(url, params, options)
 }
 
-const requestAll = (requsetList) =>{
-    if(!(requsetList instanceof Array)){
+const requestAll = (requsetList) => {
+    if (!(requsetList instanceof Array)) {
         throw new Error('请求参数必须是数组,格式为:[["请求路径(String)","请求参数(Object)","请求选项配置(Object)"],...]')
     }
 
     let methodList = []
-    requsetList.forEach(item=>{
+    requsetList.forEach(item => {
         methodList.push(request(...item))
     })
 
-    return new Promise((resolve,reject)=>{
-        axios.all(methodList).then(axios.spread(function(){
-            let array = Array.prototype.slice.call(arguments).map((item)=>item.data)
+    return new Promise((resolve, reject) => {
+        axios.all(methodList).then(axios.spread(function () {
+            let array = Array.prototype.slice.call(arguments).map((item) => item.data)
             resolve(array)
-        })).catch((e)=>{
+        })).catch((e) => {
             reject(e)
         })
     })
@@ -161,35 +168,47 @@ axiosDefault.interceptors.response.use(
             let message = response.data.message
             ElNotification({
                 title: '错误提示',
-                message: h('i', { style: 'color: #ff6600' }, message),
+                message: h('i', {style: 'color: #ff6600'}, message),
             })
 
-            if(data.code == 10001){
-                //移除登录信息
-                removeLoginInfo()
-                //未登录,跳转到登录页
-                router.replace('/login')
+            switch (data.code) {
+                case 10001:
+                    //移除登录信息
+                    removeLoginInfo()
+                    //未登录,跳转到登录页
+                    router.replace('/login')
+                    break
+                case 10003:
+                    //无操作权限
+                    break
             }
         }
 
         return response.data;
     },
     error => {
-        if(error.response && error.response.data){
+        if (error.response && error.response.data) {
             let data = error.response.data
             data = typeof data === 'string' ? data : JSON.stringify(data)
-            if(data.indexOf('code=401') !== -1){//登录超时
+            if (data.indexOf('code=401') !== -1) {//登录超时
                 router.replace('/login')
             }
-        }else if(error.message === `timeout of 3000ms exceeded`){
+        } else if (error.message === `timeout of 3000ms exceeded`) {
             ElNotification({
                 title: '错误提示',
-                message: h('i', { style: 'color: #ff6600' }, '请求超时！'),
+                message: h('i', {style: 'color: #ff6600'}, '请求超时！'),
             })
         }
         return Promise.reject(error)   // 返回接口返回的错误信息
     }
 )
+
+/** 从当前路由中获取权限标识 **/
+const getMenuCode = ()=>{
+    const routerList = router.getRoutes()
+    const path = (location.hash || location.pathname).replace(/^\#/, '')
+    return routerList.filter(route=>route.path === path)[0].meta.code
+}
 
 export {
     request,

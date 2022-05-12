@@ -89,7 +89,6 @@ export default defineComponent({
 
         /** 设置用户权限 **/
         await setAuth()
-
         router.replace('/')
       }
     }

@@ -197,6 +197,8 @@ export async function setAuth(){
   const response = await getAuthApi({userId:user.id})
   if(response.code == 200){
     localStorage.setItem("auth",JSON.stringify(response.data))
+  }else{
+    removeLoginInfo()
   }
 }
 

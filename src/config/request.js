@@ -80,9 +80,8 @@ const request = (url = '/', params = {}, options = {}) => {
             /** 在请求头添加当前请求路由路径、权限标识，后端做数据权限认证 **/
             options.headers.code = code
             options.headers.auth = params.auth
-
-            delete options[type].auth
         }
+        delete options[type].auth
 
         return new Promise((resolve, reject) => {
             axiosDefault(options).then(res => {

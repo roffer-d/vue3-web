@@ -11,7 +11,8 @@
 ### 执行依赖包安装  
     npm i
 
-* 修改根目录下的.env.development中VUE_APP_BASE_URL值（该值就是后端接口请求的context path)
+* 修改根目录下的.env.development中VUE_APP_BASE_URL值（该值是后端接口请求的context path)
+* 修改根目录下的.env.development中VUE_APP_WEBSOCKET_URL值（该值是后端websocket的请求ip地址和端口号，格式为ip:port )
 * 修改根目录下的vue.config.js文件
     ```
     修改后端接口请求：
@@ -30,6 +31,7 @@
 * 项目打包发布
     ```
     修改.env.production中VUE_APP_BASE_URL值为后端生产context path
+    修改.env.production中VUE_APP_WEBSOCKET_URL值（该值是后端websocket的请求ip地址和端口号，格式为ip:port )
     
     执行：
     npm run build

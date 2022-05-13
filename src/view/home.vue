@@ -46,7 +46,7 @@ const offLineHandler = (data)=>{
 
 if(checkLogin()){
   const user = getUser()
-  const socket = new webSocket(`localhost/api/websocket/${user.id}`)
+  const socket = new webSocket(`${process.env.VUE_APP_WEBSOCKET_URL}/api/websocket/${user.id}`)
   socket.addHandler(socket.type.OFF_LINE_USER,offLineHandler)
 
   provide('websocket', () => {

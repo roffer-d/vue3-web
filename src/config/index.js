@@ -1,7 +1,6 @@
 import store from '../store'
 import * as $utils from './utils'
 import {request as $request, post as $post, get as $get,requestAll as $requestAll} from './request'
-import $socket from './web-socket'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import custom from '../components'
@@ -17,7 +16,6 @@ const config = {
     $post,
     $get,
     $requestAll,
-    $socket
 }
 
 export default (app) =>{

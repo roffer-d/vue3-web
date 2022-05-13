@@ -2,7 +2,7 @@
   <div id="container">
     <div class="imageDiv" :style="{width:`${data.width}px`,height:`${data.height}px`}">
       <img id="validateImage" :src="data.validateImage" style="width: 100%;height: 100%"/>
-      <img id="slideImage" :style="{left:`${data.left}px`,top:`${data.y}px`}" :src="data.slideImage"/>
+      <img id="slideImage" :style="{left:`${data.left}px`,top:`${data.y+1}px`}" :src="data.slideImage"/>
     </div>
     <div class="result-msg"
          :class="{success:data.success,fail:!data.success}"
@@ -137,10 +137,13 @@ onMounted(() => {
 }
 
 #validateImage {
+
 }
 
 #slideImage {
   position: absolute;
+  height: 45px;
+  width: 50px;
   top: 5px;
   left: 0;
 }

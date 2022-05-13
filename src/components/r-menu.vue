@@ -29,7 +29,7 @@
 <script>
 import {reactive, toRefs} from 'vue'
 import {useRoute} from 'vue-router'
-import {getAuth} from '@/config/utils'
+import {getMenu} from '@/config/utils'
 import rSubMenu from './r-sub-menu'
 
 export default {
@@ -38,7 +38,7 @@ export default {
     const route = useRoute()
     const data = reactive({
       defaultActive: route.path,
-      menuList: getAuth().menuList,
+      menuList: getMenu(),
       isCollapse: localStorage.getItem('menu_collapse'),
       arrowVisible: false
     })
@@ -52,9 +52,18 @@ export default {
       localStorage.setItem('menu_collapse',data.isCollapse)
     }
 
+    const handleOpen = (key, keyPath) => {
+      // console.log(key, keyPath)
+    }
+    const handleClose = (key, keyPath) => {
+      // console.log(key, keyPath)
+    }
+
     return {
       ...toRefs(data),
-      toggleCollapse
+      toggleCollapse,
+      handleOpen,
+      handleClose
     }
   }
 }

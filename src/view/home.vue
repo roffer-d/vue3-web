@@ -17,24 +17,43 @@
   </div>
 </template>
 
-<script>
-import {defineComponent} from 'vue'
+<script setup>
+import {provide} from 'vue'
+import {ElMessageBox} from 'element-plus'
+import webSocket from '@/config/websocket'
+import router from '@/router/index'
+import {checkLogin,getUser,removeLoginInfo} from "@/config/utils"
+import {logOut} from "@/view/login/api";
 
-export default defineComponent({
-  setup(){
-    const handleOpen = (key, keyPath) => {
-      console.log(key, keyPath)
-    }
-    const handleClose = (key, keyPath) => {
-      console.log(key, keyPath)
-    }
-
-    return {
-      handleOpen,
-      handleClose
-    }
+/** 被动踢出登录 **/
+const offLineHandler = (data)=>{
+  /** 被动踢出登录 **/
+  if(data.code == 10004){
+    ElMessageBox.confirm(`您已被管理员踢出登录`,'下线提示',{
+      confirmButtonText: '知道了',
+      showCancelButton:false,
+    })
+        .then(() => {
+          logOut().then(res => {
+            if (res.code == 200) {
+              removeLoginInfo()
+              router.replace('/login')
+            }
+          })
+        })
   }
-})
+}
+
+if(checkLogin()){
+  const user = getUser()
+  const socket = new webSocket(`localhost/api/websocket/${user.id}`)
+  socket.addHandler(socket.type.OFF_LINE_USER,offLineHandler)
+
+  provide('websocket', () => {
+    return socket
+  })
+}
+
 </script>
 
 <style scoped lang="scss">

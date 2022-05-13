@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory,createWebHashHistory } from 'vue-router'
-import {checkLogin,getAuth} from "../config/utils";
+import {checkLogin,getMenu} from "../config/utils";
 import {ElMessage} from 'element-plus'
 
 const modulesFiles = require.context('@/view', true, /router.js$/);
@@ -47,9 +47,8 @@ Router.beforeEach((to, from) => {
 
   let result = true
   const code = to.meta.code
-  const auth = getAuth()
-  if(auth && code){
-    const menuList = auth.menuList
+  const menuList = getMenu()
+  if(menuList && code){
     result = menuList.map(m=>m.code).includes(code)
     if(!result){
       ElMessage({

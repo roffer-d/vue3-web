@@ -1,21 +1,26 @@
 /**
-  * @desc websocket 工具类
-  * @param url 连接url
-  * @auth Roffer
-  * @date 2022/5/13 15:01
-  *
-  */
+ * @desc websocket 工具类
+ * @param url 连接url
+ * @auth Roffer
+ * @date 2022/5/13 15:01
+ *
+ */
 export default class Socket {
     constructor(url) {
         this.url = url
         this.callback = {}
         this.instance = null
 
+        this.type = {
+            /** 踢出登录用户标识 **/
+            OFF_LINE_USER: 'OFF_LINE_USER',
+        }
+
         this.init()
     }
 
     /** 初始化连接 **/
-    init(){
+    init() {
         let instance = new WebSocket(`ws://${this.url}`)
 
         instance.onmessage = (e) => {
@@ -39,12 +44,12 @@ export default class Socket {
     }
 
     /** 添加接收message的回调函数 **/
-    addHandler(type,callback){
+    addHandler(type, callback) {
         this.callback[type] = callback
     }
 
     /** 发送消息到服务端 **/
-    send(data){
+    send(data) {
         if (this.instance.readyState == this.instance.OPEN) {
             this.instance.send(JSON.stringify(data))
         } else {
@@ -55,7 +60,7 @@ export default class Socket {
     }
 
     /** 断开连接 **/
-    close(){
+    close() {
         this.instance && this.instance.close()
     }
 }

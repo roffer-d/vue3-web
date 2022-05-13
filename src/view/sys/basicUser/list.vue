@@ -17,8 +17,9 @@
         <el-table-column prop="name" label="真实姓名" width="120" />
         <el-table-column prop="account" label="登录账号" width="100" />
         <el-table-column prop="email" label="邮箱"/>
-        <el-table-column prop="createTime" label="创建时间" width="180" />
-        <el-table-column prop="updateTime" label="更新时间" width="180" />
+        <el-table-column prop="lastLoginTime" label="最后登录时间" width="180" />
+<!--        <el-table-column prop="createTime" label="创建时间" width="180" />-->
+<!--        <el-table-column prop="updateTime" label="更新时间" width="180" />-->
         <el-table-column prop="status" label="用户状态">
           <template #default="{row}">
             <span class="danger-text" v-if="row.status == '0'">已禁用</span>
@@ -73,19 +74,12 @@
 </template>
 
 <script setup>
-import {computed, onMounted, reactive,inject} from 'vue'
+import {computed, onMounted, reactive} from 'vue'
 import * as basicUserApi from './api'
 import {ElMessage, ElMessageBox} from 'element-plus'
 import {getUser} from "@/config/utils";
 import edit from './components/edit'
 import userRole from './components/userRole'
-
-/** 接收websocket推送的消息 **/
-const userListHandler = (msg)=>{
-  console.log(msg)
-}
-const websocket = inject('websocket')()
-websocket.addHandler('init',userListHandler)
 
 const data = reactive({
   pageSizeOption: [10, 20, 50, 100],

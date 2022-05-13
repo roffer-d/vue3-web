@@ -13,12 +13,9 @@
         <el-table-column prop="updateTime" label="更新时间"/>
         <el-table-column label="操作" width="260">
           <template #default="{row}">
-            <template v-if="row.id != '1518424205647986689'">
-              <el-tag class="mr-10" @click="handlerEdit(row)" type="success" v-auth="'edit'">编辑</el-tag>
-              <el-tag class="mr-10" @click="handlerAuth(row)" type="success" v-auth="'menu_auth'">菜单权限</el-tag>
-              <el-tag class="mr-10" @click="handlerDelete(row)" type="danger" v-auth="'delete'">删除</el-tag>
-            </template>
-            <span v-else-if="row.id == '1518424205647986689'" class="success-text">不可操作超级管理员角色</span>
+            <el-tag class="mr-10" @click="handlerEdit(row)" type="success" v-auth="'edit'">编辑</el-tag>
+            <el-tag class="mr-10" @click="handlerAuth(row)" type="success" v-auth="'menu_auth'">菜单权限</el-tag>
+            <el-tag class="mr-10" @click="handlerDelete(row)" type="danger" v-auth="'delete'">删除</el-tag>
           </template>
         </el-table-column>
       </el-table>

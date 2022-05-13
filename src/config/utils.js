@@ -1,4 +1,5 @@
 import {getAuth as getAuthApi} from '@/view/sys/basicMenu/api'
+import router from '@/router/index'
 
 /**
  * @description 日期格式化
@@ -170,18 +171,41 @@ export function isObject(obj) {
  */
 export function getUser() {
     let user = localStorage.getItem('user')
-    return user ? JSON.parse(user) : undefined
+    if(!user){
+        router.replace('/login')
+    }
+
+    return JSON.parse(user)
 }
 
 /**
- * @desc 获取登录用户权限
+ * @desc 获取登录用户菜单列表
  * @auth Roffer
  * 2022/4/19 13:30
  *
  */
-export function getAuth() {
-    let auth = localStorage.getItem('auth')
-    return auth ? JSON.parse(auth) : undefined
+export function getMenu() {
+    let menu = localStorage.getItem('menu')
+    if(!menu){
+        router.replace('/login')
+    }
+
+    return JSON.parse(menu)
+}
+
+/**
+ * @desc 获取登录用户菜单列表
+ * @auth Roffer
+ * 2022/4/19 13:30
+ *
+ */
+export function getRole() {
+    let role = localStorage.getItem('role')
+    if(!role){
+        router.replace('/login')
+    }
+
+    return JSON.parse(role)
 }
 
 /**
@@ -195,7 +219,8 @@ export async function setAuth() {
     /** 获取用户权限 **/
     const response = await getAuthApi({userId: user.id})
     if (response.code == 200) {
-        localStorage.setItem("auth", JSON.stringify(response.data))
+        localStorage.setItem("menu", JSON.stringify(res.data.menu))
+        localStorage.setItem("role", JSON.stringify(res.data.role))
     } else {
         removeLoginInfo()
     }
@@ -208,10 +233,8 @@ export async function setAuth() {
   *
   */
 export function checkLogin() {
-    let user = getUser()
-    let auth = getAuth()
-
-    return user && auth
+    let token = localStorage.getItem('token')
+    return !!token
 }
 
 /**
@@ -225,5 +248,6 @@ export function checkLogin() {
 export function removeLoginInfo() {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
-    localStorage.removeItem('auth')
+    localStorage.removeItem('menu')
+    localStorage.removeItem('role')
 }

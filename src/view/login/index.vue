@@ -38,7 +38,6 @@
 <script>
 import {defineComponent, reactive, ref, toRefs, onBeforeMount} from 'vue'
 import {login} from './api'
-import {setAuth} from "@/config/utils";
 import router from '@/router'
 import md5 from 'js-md5'
 import vcode from '@/components/vcode'
@@ -85,9 +84,9 @@ export default defineComponent({
       if (res.code == 200) {
         localStorage.setItem("token", `Bearer ${res.data.token}`)
         localStorage.setItem("user", JSON.stringify(res.data.user))
+        localStorage.setItem("menu", JSON.stringify(res.data.menu))
+        localStorage.setItem("role", JSON.stringify(res.data.role))
 
-        /** 设置用户权限 **/
-        await setAuth()
         router.replace('/')
       }
     }

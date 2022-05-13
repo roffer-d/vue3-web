@@ -1,46 +1,7 @@
-import {getAuth} from "./utils";
+import {getRole} from "./utils";
 
 /** 移动端长按指令 **/
 const directiveList = [
-  {
-    name: 'longpress',
-    directive: {
-      mounted (el, bind) {
-        let timeOutEvent = 0;
-
-        el.addEventListener('touchstart', (e) => {
-          timeOutEvent = setTimeout(() => {
-            let param = bind.value.param
-            let callback = bind.value.callback
-            callback && callback(param || {})
-          }, 500);
-          e.preventDefault();
-        })
-
-        el.addEventListener('touchmove', (e) => {
-          clearTimeout(timeOutEvent);
-          timeOutEvent = 0;
-        })
-
-        el.addEventListener('touchend', (e) => {
-          clearTimeout(timeOutEvent);
-          // if(timeOutEvent!=0){
-          //   alert("你这是点击，不是长按");
-          // }
-          return false;
-        })
-      }
-    }
-  },
-  {
-    name: 'focus',
-    directive: {
-      mounted: function (el) {
-        // 聚焦元素
-        el.focus()
-      }
-    }
-  },
   {
     /** 按钮权限指令 **/
     name: 'auth',
@@ -49,9 +10,9 @@ const directiveList = [
 
       },
       mounted(el,bind,vnode) {
-        const {roleMenuList} = getAuth()
+        const roleList = getRole()
         const route = (location.hash||location.pathname).replace(/^\#/,'')
-        roleMenuList.forEach(rm=>{
+        roleList.forEach(rm=>{
           if(rm.route == route){
             let authList = rm.auth.split(',')
             if(!authList.includes(bind.value)){

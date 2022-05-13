@@ -219,8 +219,8 @@ export async function setAuth() {
     /** 获取用户权限 **/
     const response = await getAuthApi({userId: user.id})
     if (response.code == 200) {
-        localStorage.setItem("menu", JSON.stringify(res.data.menu))
-        localStorage.setItem("role", JSON.stringify(res.data.role))
+        localStorage.setItem("menu", JSON.stringify(response.data.menu))
+        localStorage.setItem("role", JSON.stringify(response.data.role))
     } else {
         removeLoginInfo()
     }

@@ -1,27 +1,28 @@
 <template>
-  <div id="container">
+  <div id="container" v-if="data.validateImage">
     <div class="imageDiv" :style="{width:`${data.width}px`,height:`${data.height}px`}">
       <img id="validateImage" :src="data.validateImage" style="width: 100%;height: 100%"/>
-      <img id="slideImage" :style="{left:`${data.left}px`,top:`${data.y+1}px`}" :src="data.slideImage"/>
+      <img class="slideImage" :style="{left:`${data.left}px`,top:`${data.y+1}px`}" :src="data.slideImage"/>
     </div>
     <div class="result-msg"
          :class="{success:data.success,fail:!data.success}"
          :style="{height:`${data.msgHeight}px`}">
       <div class="msg">{{ data.success ? '验证通过' : '验证失败' }}</div>
     </div>
-    <div id="sliderOuter" @mousedown="sliderDown" :style="{width:`${data.width}px`,height:`40px`}">
-      <div id="dragDiv">拖动滑块完成拼图</div>
-      <div id="sliderInner" :style="{left:`${data.left}px`}"></div>
+    <div class="sliderOuter" @mousedown="sliderDown" :style="{width:`${data.width}px`,height:`40px`}">
+      <div class="dragDiv">拖动滑块完成拼图</div>
+      <div class="sliderInner" :style="{left:`${data.left}px`}"></div>
     </div>
     <div class="btn-action">
       <i class="iconfont icon-refresh" @click="refresh"></i>
       <i class="iconfont icon-close" @click="close"></i>
     </div>
   </div>
+  <div class="imageLoding" v-else v-loading="data.validateImage" element-loading-text="图片加载中..."></div>
 </template>
 
 <script setup>
-import {ref, onBeforeMount, reactive, defineProps, defineEmits, onBeforeUnmount, onMounted,nextTick} from 'vue';
+import {ref, onBeforeMount, reactive, defineProps, defineEmits, onBeforeUnmount, onMounted, nextTick} from 'vue';
 import {createImg, checkImg} from "../view/login/api";
 
 const props = defineProps({})
@@ -121,110 +122,98 @@ onMounted(() => {
 <style lang="scss" scoped>
 #container {
   width: 100%;
-}
 
-.fontDiv {
-  margin: 16px 0;
-}
+  .imageDiv {
+    position: relative;
 
-.dragFont {
-  font-size: 16px;
-  color: dodgerblue;
-}
-
-.imageDiv {
-  position: relative;
-}
-
-#validateImage {
-
-}
-
-#slideImage {
-  position: absolute;
-  height: 45px;
-  width: 50px;
-  top: 5px;
-  left: 0;
-}
-
-#sliderOuter {
-  margin: 12px auto;
-  border-radius: 4px;
-  box-shadow: 0 0 10px -2px darkgrey;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-#dragDiv {
-  width: 100%;
-  height: 40px;
-  position: absolute;
-  color: #77ba93;
-  text-align: center;
-  line-height: 40px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-#sliderInner {
-  width: 40px;
-  height: 40px;
-  border-radius: 4px;
-  font-size: 2rem;
-  background-color: #28a745;
-  cursor: pointer;
-  position: absolute;
-  left: 0;
-}
-
-.result-msg {
-  display: flex;
-  align-items: center;
-  font-size: 12px;
-  color: #fff;
-  transition: all .5s;
-
-  &.success {
-    background: #28a745;
+    .slideImage {
+      position: absolute;
+      height: 45px;
+      width: 50px;
+      top: 5px;
+      left: 0;
+    }
   }
 
-  &.fail {
-    background: #f56c6c;
+  .sliderOuter {
+    margin: 12px auto;
+    border-radius: 4px;
+    box-shadow: 0 0 10px -2px darkgrey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .dragDiv {
+      width: 100%;
+      height: 40px;
+      position: absolute;
+      color: #77ba93;
+      text-align: center;
+      line-height: 40px;
+      user-select: none;
+    }
+
+    .sliderInner {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      font-size: 2rem;
+      background-color: #28a745;
+      cursor: pointer;
+      position: absolute;
+      left: 0;
+    }
   }
 
-  .msg{
-    padding: 4px 8px;
-  }
-}
-
-.btn-action {
-  padding: 0 10px 10px 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .iconfont {
-    font-size: 20px;
-    margin-right: 10px;
-    cursor: pointer;
+  .result-msg {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #fff;
     transition: all .5s;
 
-    &:hover {
-      transform: scale(1.2);
+    &.success {
+      background: #28a745;
     }
 
-    &.icon-refresh {
-      color: #28a745;
+    &.fail {
+      background: #f56c6c;
     }
 
-    &.icon-close {
-      color: #f56c6c;
+    .msg {
+      padding: 4px 8px;
     }
   }
+
+  .btn-action {
+    padding: 0 10px 10px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .iconfont {
+      font-size: 20px;
+      margin-right: 10px;
+      cursor: pointer;
+      transition: all .5s;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+
+      &.icon-refresh {
+        color: #28a745;
+      }
+
+      &.icon-close {
+        color: #f56c6c;
+      }
+    }
+  }
+}
+.imageLoding{
+  width: 100%;
+  height: 296px;
 }
 </style>

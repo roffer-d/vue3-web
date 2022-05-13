@@ -8,10 +8,9 @@
 * 日志查询  
 * 字典管理
 
-### 执行依赖包安装
-    ```
+### 执行依赖包安装  
     npm i
-    ```
+
 * 修改根目录下的.env.development中VUE_APP_BASE_URL值（该值就是后端接口请求的context path)
 * 修改根目录下的vue.config.js文件
     ```

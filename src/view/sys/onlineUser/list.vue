@@ -42,6 +42,9 @@ const offUser = (row) => {
       {
         confirmButtonText: '下线',
         cancelButtonText: '取消',
+        closeOnPressEscape: false,
+        closeOnClickModal: false,
+        showClose: false,
         type: 'warning',
       }).then(() => {
     offLine({userId: row.id}).then(res => {

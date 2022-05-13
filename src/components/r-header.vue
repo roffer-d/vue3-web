@@ -1,5 +1,5 @@
 <template>
-  <div class="b-header">
+  <div class="b-header" v-if="user">
     <r-breadcrumb />
     <el-dropdown trigger="click" @command="handlerCommand">
         <span class="el-dropdown-link">

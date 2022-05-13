@@ -73,12 +73,19 @@
 </template>
 
 <script setup>
-import {computed, onMounted, reactive} from 'vue'
+import {computed, onMounted, reactive,inject} from 'vue'
 import * as basicUserApi from './api'
 import {ElMessage, ElMessageBox} from 'element-plus'
 import {getUser} from "@/config/utils";
 import edit from './components/edit'
 import userRole from './components/userRole'
+
+/** 接收websocket推送的消息 **/
+const userListHandler = (msg)=>{
+  console.log(msg)
+}
+const websocket = inject('websocket')()
+websocket.addHandler('init',userListHandler)
 
 const data = reactive({
   pageSizeOption: [10, 20, 50, 100],

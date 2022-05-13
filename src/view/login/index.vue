@@ -1,12 +1,11 @@
 <template>
-  <div class="login">
+  <div class="login" @keyup.enter="handlerLogin">
     <div class="login-box">
       <div class="title">登录</div>
       <div class="form">
         <div class="form-item">
           <span class="iconfont icon-account"></span>
-          <input type="text" v-model="form.account" placeholder="登录账号" @input="checkAccount"
-                 @keyup.enter="handlerLogin">
+          <input type="text" v-model="form.account" placeholder="登录账号" @input="checkAccount">
           <div class="error" v-show="accountError">{{ accountError }}</div>
         </div>
         <div class="form-item">
@@ -37,7 +36,7 @@
   </div>
 </template>
 <script>
-import {defineComponent, reactive, ref, toRefs, onMounted} from 'vue'
+import {defineComponent, reactive, ref, toRefs, onBeforeMount} from 'vue'
 import {login} from './api'
 import {setAuth} from "@/config/utils";
 import router from '@/router'
@@ -101,7 +100,8 @@ export default defineComponent({
       data.modelVisible = data.form.account !== '' && data.form.password !== ''
     }
 
-    onMounted(() => {
+    onBeforeMount(() => {
+
     })
 
     return {

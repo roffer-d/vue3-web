@@ -1,4 +1,3 @@
-import router from "@/router";
 import {getAuth as getAuthApi} from '@/view/sys/basicMenu/api'
 
 /**
@@ -7,24 +6,24 @@ import {getAuth as getAuthApi} from '@/view/sys/basicMenu/api'
  * @param date:时间
  * @param format:日期格式化字符串，默认 yyyy-MM-dd hh:mm:ss
  */
-export function dateFormat(date,format) {
-  if(date){
-    date = date instanceof Date ? date : new Date(date);
-    let o = {
-      "M+" : date.getMonth()+1,                 //月份
-      "d+" : date.getDate(),                    //日
-      "h+" : date.getHours(),                   //小时
-      "m+" : date.getMinutes(),                 //分
-      "s+" : date.getSeconds(),                 //秒
-      "q+" : Math.floor((date.getMonth()+3)/3), //季度
-      "S"  : date.getMilliseconds()             //毫秒
-    };
+export function dateFormat(date, format) {
+    if (date) {
+        date = date instanceof Date ? date : new Date(date);
+        let o = {
+            "M+": date.getMonth() + 1,                 //月份
+            "d+": date.getDate(),                    //日
+            "h+": date.getHours(),                   //小时
+            "m+": date.getMinutes(),                 //分
+            "s+": date.getSeconds(),                 //秒
+            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
+            "S": date.getMilliseconds()             //毫秒
+        };
 
-    format = (format || 'yyyy-MM-dd hh:mm:ss').replace(/y+/i,date.getFullYear());
-    for(let i in o)format = format.replace(new RegExp('(' + i + ')'),('0' + o[i]).slice(-2));
-    return format;
-  }
-  return '';
+        format = (format || 'yyyy-MM-dd hh:mm:ss').replace(/y+/i, date.getFullYear());
+        for (let i in o) format = format.replace(new RegExp('(' + i + ')'), ('0' + o[i]).slice(-2));
+        return format;
+    }
+    return '';
 }
 
 /**
@@ -32,9 +31,9 @@ export function dateFormat(date,format) {
  * @param num
  * @returns {string}
  */
-export function numberFormat(num){
-  num = (''+num).replace(/(\d+)(\.)(\d+)/,'$1');
-  return (''+num).replace(/(\d{1,3})(?=(\d{3})+(?:$|\D))/g ,'$1,');
+export function numberFormat(num) {
+    num = ('' + num).replace(/(\d+)(\.)(\d+)/, '$1');
+    return ('' + num).replace(/(\d{1,3})(?=(\d{3})+(?:$|\D))/g, '$1,');
 }
 
 /**
@@ -42,10 +41,10 @@ export function numberFormat(num){
  * @param：
  * name：参数名称
  */
-export function getParamsFromUrl(name){
-  var reg = new RegExp("(^|&|#)" + name + "=([^&]*)(&|$)", "i");
-  var r = window.location.href.replace(/(.*)(\?)(.*)/,'$3').match(reg);
-  return r ? r[2] : '';
+export function getParamsFromUrl(name) {
+    var reg = new RegExp("(^|&|#)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.href.replace(/(.*)(\?)(.*)/, '$3').match(reg);
+    return r ? r[2] : '';
 }
 
 /**
@@ -55,24 +54,24 @@ export function getParamsFromUrl(name){
  * @auth   Roffer
  * @date   2019-05-0911:22
  */
-export function clone(obj){
-  if(obj){
-    return JSON.parse(JSON.stringify(obj));
-  }
-  return {};
+export function clone(obj) {
+    if (obj) {
+        return JSON.parse(JSON.stringify(obj));
+    }
+    return {};
 }
 
 /**
  * @desc 生成随机ID
  * @date   2019-09-03 11:34
  */
-export function randomId(len=9){
-  let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = ''
-  for(let i = 0 ; i < len ; i++){
-    result += str.charAt(Math.floor(Math.random() * str.length))
-  }
-  return result;
+export function randomId(len = 9) {
+    let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = ''
+    for (let i = 0; i < len; i++) {
+        result += str.charAt(Math.floor(Math.random() * str.length))
+    }
+    return result;
 }
 
 /**
@@ -80,11 +79,11 @@ export function randomId(len=9){
  * @date   2019-09-03 11:34
  */
 export function uuid() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = Math.random() * 16 | 0,
-        v = c == 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0,
+            v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
 }
 
 /**
@@ -92,15 +91,15 @@ export function uuid() {
  * @params obj 目标对象，isCovert2Str 是否将获取到的key转化成字符串 true："a,b,c,d,...",false：["a","b","c","d",...]
  * @date   2019-09-03 11:34
  */
-export function getKeys(obj,isCovert2Str){
-  let keysList = []
-  for(let key in obj){
-    keysList.push(key)
-  }
+export function getKeys(obj, isCovert2Str) {
+    let keysList = []
+    for (let key in obj) {
+        keysList.push(key)
+    }
 
-  isCovert2Str && (keysList = keysList.join(','))
+    isCovert2Str && (keysList = keysList.join(','))
 
-  return keysList
+    return keysList
 }
 
 /**
@@ -110,29 +109,29 @@ export function getKeys(obj,isCovert2Str){
  * @params val 目标元素属性的值（通常指id或者class的值）
  * @date   2019-12-06 21:49
  */
-export function isInTarget(e,property,val) {
-  let retVal = false
+export function isInTarget(e, property, val) {
+    let retVal = false
 
-  function exec(t){
-    if(t[property] === val){
-      retVal = true
-    }else if(t.parentNode){
-      exec(t.parentNode)
+    function exec(t) {
+        if (t[property] === val) {
+            retVal = true
+        } else if (t.parentNode) {
+            exec(t.parentNode)
+        }
     }
-  }
 
-  if(e.path){//chrome
-    let pathList = e.path
-    pathList = pathList.filter(item => {
-       return item[property] === val
-    })
+    if (e.path) {//chrome
+        let pathList = e.path
+        pathList = pathList.filter(item => {
+            return item[property] === val
+        })
 
-    retVal = pathList.length > 0
-  }else{//通用
-    exec(e.target||e.srcElement)
-  }
+        retVal = pathList.length > 0
+    } else {//通用
+        exec(e.target || e.srcElement)
+    }
 
-  return retVal
+    return retVal
 }
 
 /**
@@ -143,12 +142,12 @@ export function isInTarget(e,property,val) {
  * @date   2019-09-03 11:34
  */
 export function formatFileSize(size, pointLength, units) {
-  let unit;
-  units = units || [ 'B', 'K', 'M', 'G', 'TB' ];
-  while ((unit = units.shift()) && size > 1024) {
-    size = size / 1024;
-  }
-  return (unit === 'B' ? size : size.toFixed(pointLength || 2)) + unit;
+    let unit;
+    units = units || ['B', 'K', 'M', 'G', 'TB'];
+    while ((unit = units.shift()) && size > 1024) {
+        size = size / 1024;
+    }
+    return (unit === 'B' ? size : size.toFixed(pointLength || 2)) + unit;
 }
 
 /**
@@ -158,9 +157,9 @@ export function formatFileSize(size, pointLength, units) {
  * @author Roffer
  *
  */
-export function isObject(obj){
-  const str = Object.prototype.toString.call(obj);
-  return str.match(/\[object (.*?)\]/)[1].toLowerCase() === 'object'
+export function isObject(obj) {
+    const str = Object.prototype.toString.call(obj);
+    return str.match(/\[object (.*?)\]/)[1].toLowerCase() === 'object'
 }
 
 /**
@@ -169,12 +168,9 @@ export function isObject(obj){
  * 2022/4/19 13:30
  *
  */
-export function getUser(){
-  let user = localStorage.getItem('user')
-  if(!user){
-    router.replace('/login')
-  }else
-    return JSON.parse(user)
+export function getUser() {
+    let user = localStorage.getItem('user')
+    return user ? JSON.parse(user) : undefined
 }
 
 /**
@@ -183,23 +179,39 @@ export function getUser(){
  * 2022/4/19 13:30
  *
  */
-export function getAuth(){
-  let auth = localStorage.getItem('auth')
-  if(!auth){
-    router.replace('/login')
-  }else
-    return JSON.parse(auth)
+export function getAuth() {
+    let auth = localStorage.getItem('auth')
+    return auth ? JSON.parse(auth) : undefined
 }
 
-export async function setAuth(){
-  const user = getUser()
-  /** 获取用户权限 **/
-  const response = await getAuthApi({userId:user.id})
-  if(response.code == 200){
-    localStorage.setItem("auth",JSON.stringify(response.data))
-  }else{
-    removeLoginInfo()
-  }
+/**
+  * @desc 设置登录权限
+  * @auth Roffer
+  * @date 2022/5/13 11:07
+  *
+  */
+export async function setAuth() {
+    const user = getUser()
+    /** 获取用户权限 **/
+    const response = await getAuthApi({userId: user.id})
+    if (response.code == 200) {
+        localStorage.setItem("auth", JSON.stringify(response.data))
+    } else {
+        removeLoginInfo()
+    }
+}
+
+/**
+  * @desc 检测是否登录
+  * @auth Roffer
+  * @date 2022/5/13 11:06
+  *
+  */
+export function checkLogin() {
+    let user = getUser()
+    let auth = getAuth()
+
+    return user && auth
 }
 
 /**
@@ -210,8 +222,8 @@ export async function setAuth(){
  * 2022/4/19 13:30
  *
  */
-export function removeLoginInfo(){
-  localStorage.removeItem('token')
-  localStorage.removeItem('user')
-  localStorage.removeItem('auth')
+export function removeLoginInfo() {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    localStorage.removeItem('auth')
 }

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory,createWebHashHistory } from 'vue-router'
-import {getAuth} from "../config/utils";
+import {checkLogin,getAuth} from "../config/utils";
 import {ElMessage} from 'element-plus'
 
 const modulesFiles = require.context('@/view', true, /router.js$/);
@@ -33,14 +33,21 @@ const Router = createRouter({
 })
 
 Router.beforeEach((to, from) => {
+  const isLogin = checkLogin()
+
+  /** 如果访问的是登录页面，并且已经存在登录信息，直接跳转到首页 **/
+  if(to.path == '/login' && isLogin){
+    Router.replace({path:'/'})
+  }
+
   const filterPath = ['/','/login','/404']
   if(filterPath.includes(to.path)){
     return true
   }
 
   let result = true
-  const auth = getAuth()
   const code = to.meta.code
+  const auth = getAuth()
   if(auth && code){
     const menuList = auth.menuList
     result = menuList.map(m=>m.code).includes(code)

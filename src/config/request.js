@@ -19,10 +19,11 @@ import {ElMessage, ElNotification} from 'element-plus'
 /**
  * 默认通用请求
  **/
+console.log(process.env)
 
 let axiosDefault = axios.create({
     timeout: 30000,
-    baseURL: '/basic',
+    baseURL: process.env.VUE_APP_BASE_URL,
     withCredentials: false
 })
 

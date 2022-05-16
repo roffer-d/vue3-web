@@ -2,7 +2,7 @@
   <div class="basicRole-page">
     <div class="search-box">
       <el-input v-model="data.searchData.name" placeholder="角色名称" style="width: 200px;" class="mr-20"/>
-      <el-button class="mr-10" type="primary" @click="search" v-auth="query">查询</el-button>
+      <el-button class="mr-10" type="primary" @click="search" v-auth="'query'">查询</el-button>
       <el-button class="mr-10" @click="reset">重设</el-button>
       <el-button type="success" @click="handlerAdd" style="float: right" v-auth="'add'">添加</el-button>
     </div>
@@ -24,10 +24,10 @@
           v-model:currentPage="data.searchData.pageNum"
           v-model:page-size="data.searchData.pageSize"
           :hide-on-single-page="hidePager"
-          :page-sizes="pageSizeOption"
+          :page-sizes="data.pageSizeOption"
           small
           layout="total, sizes, prev, pager, next, jumper"
-          :total="total"
+          :total="data.total"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
       />

@@ -31,7 +31,7 @@ const offLineHandler = (data) => {
   if (data.code == 10004) {
     removeLoginInfo()
 
-    ElMessageBox.alert(`您已被管理员踢出登录`, '下线提示', {
+    ElMessageBox.alert(`您已被踢出登录`, '下线提示', {
       confirmButtonText: '知道了',
       showClose: false,
     })

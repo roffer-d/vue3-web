@@ -1,5 +1,8 @@
 <template>
   <div class="basicLog-page">
+    <div class="total">
+      <span>在线人数：<span class="count">{{data.list.length}}</span></span>
+    </div>
     <div class="data-list" v-loading="data.loading">
       <el-table :data="data.list" style="width: 100%">
         <el-table-column prop="account" label="登录账号"/>
@@ -78,6 +81,16 @@ onBeforeUnmount(() => {
   background: #fff;
   padding: 20px;
   height: calc(100vh - 138px);
+
+  .total{
+    font-size: 13px;
+    color: #555;
+
+    .count{
+      color: #c32026;
+      font-weight: 700;
+    }
+  }
 
   .data-list {
     margin-top: 20px;

@@ -78,7 +78,7 @@ const getImage = async () => {
 
 /** 拖动滑块 **/
 const sliderDown = (e) => {
-  if (e.target.id !== 'sliderInner') return
+  if (e.target.className !== 'sliderInner') return
   data.originX = e.clientX;
   data.originY = e.clientY;
   data.isMouseDown = true;

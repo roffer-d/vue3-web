@@ -9,7 +9,12 @@
          :style="{height:`${data.msgHeight}px`}">
       <div class="msg">{{ data.success ? '验证通过' : '验证失败' }}</div>
     </div>
-    <div class="sliderOuter" @mousedown="sliderDown" :style="{width:`${data.width}px`,height:`40px`}">
+    <div class="sliderOuter"
+         @mousedown="sliderDown"
+         @touchstart="touchStart"
+         @touchmove="touchMove"
+         @touchend="touchEnd"
+         :style="{width:`${data.width}px`,height:`40px`}">
       <div class="dragDiv">拖动滑块完成拼图</div>
       <div class="sliderInner" :style="{left:`${data.left}px`}"></div>
     </div>
@@ -108,6 +113,26 @@ const bindEvt = () => {
     document.removeEventListener('mousemove', moveEvt);
     document.removeEventListener('mouseup', upEvt);
   })
+};
+
+const touchStart = (e) => {
+  if (data.success) return;
+  data.originX = e.changedTouches[0].pageX;
+  data.originY = e.changedTouches[0].pageY;
+  data.isMouseDown = true;
+};
+const touchMove = (e) => {
+  if (!data.isMouseDown) return;
+  const moveX = e.changedTouches[0].pageX - data.originX;
+  const moveY = e.changedTouches[0].pageY - data.originY;
+  if (moveX < 0 || moveX + 43 >= data.width) return;
+  data.left = moveX;
+};
+const touchEnd = (e) => {
+  if (!data.isMouseDown) return;
+  data.isMouseDown = false;
+  if (e.changedTouches[0].pageX === data.originX) return;
+  validateImg();
 };
 
 onBeforeMount(() => {

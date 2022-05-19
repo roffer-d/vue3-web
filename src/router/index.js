@@ -7,8 +7,10 @@ let childrenRouters = [];
 modulesFiles.keys().forEach((key)=>{
   childrenRouters = childrenRouters.concat(modulesFiles(key).default)
 })
+
+const isDevelopment = process.env.NODE_ENV === 'development'
 const Router = createRouter({
-  history: createWebHashHistory(),
+  history: isDevelopment ? createWebHashHistory() : createWebHistory(),
   routes: [
     {
       path: '/',
